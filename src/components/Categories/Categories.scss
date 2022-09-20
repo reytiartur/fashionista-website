@@ -1,0 +1,12 @@
+.categories-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+    padding: 3rem 4rem;
+
+    & :hover {
+        background-size: 120%;
+        opacity: 0.9;
+    }    
+}

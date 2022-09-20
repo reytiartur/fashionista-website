@@ -4,18 +4,21 @@ import './Navigation.scss'
 import { BsCart4 } from 'react-icons/bs'
 import { CgProfile } from 'react-icons/cg'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 
 const Navigation = () => {
   return (
-    <div className='navigation'>
+    <>
+      <div className='navigation'>
         <GiHamburgerMenu className='sidebar-icon nav-icon' />
         <Link to="/"><div className='logo'>FASHIONISTA</div></Link>
         <div className='icons-container'>
-          <CgProfile className="auth nav-icon" />
-          <BsCart4 className="cart nav-icon" />
+          <Link to="/auth"><CgProfile className="auth nav-icon" /></Link>
+          <Link to="/cart"><BsCart4 className="cart nav-icon" /></Link>
         </div>
-    </div>
+      </div>
+      <Outlet />
+    </>
   )
 }
 
