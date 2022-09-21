@@ -1,0 +1,41 @@
+.button {
+    min-width: 180px;
+    width: fit-content;
+    height: 50px;
+    border: black 2px solid;
+    border-radius: 16px;
+    padding: 0 20px;
+    background: black;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 300ms ease;
+
+
+    &:hover {
+        background: white;
+        color: black;
+    }  
+}
+
+.inverted {
+    background: black;
+    color: white;
+
+    &:hover {
+        background: white;
+        color: black;
+    }
+}
+
+.google {
+    background: blue;
+    color: white;
+
+    &:hover {
+        text-shadow: 2px 2px 2px blue;
+    }
+}

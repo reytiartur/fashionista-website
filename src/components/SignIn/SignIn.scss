@@ -1,0 +1,30 @@
+.sign-in-container {
+    width: 35vw;
+    height: 45vh;
+    display: flex;
+    flex-direction: column;
+
+    p {
+        text-align: center;
+        font-size: 36px;
+        font-weight: 700;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            height: fit-content;
+            margin-top: auto;
+            margin-bottom: 1rem;
+        }
+    }
+
+    
+}

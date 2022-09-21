@@ -13,8 +13,8 @@ const Navigation = () => {
         <GiHamburgerMenu className='sidebar-icon nav-icon' />
         <Link to="/"><div className='logo'>FASHIONISTA</div></Link>
         <div className='icons-container'>
-          <Link to="/auth"><CgProfile className="auth nav-icon" /></Link>
-          <Link to="/cart"><BsCart4 className="cart nav-icon" /></Link>
+          <Link to="/auth"><CgProfile className="auth-icon nav-icon" /></Link>
+          <Link to="/cart"><BsCart4 className="cart-icon nav-icon" /></Link>
         </div>
       </div>
       <Outlet />
