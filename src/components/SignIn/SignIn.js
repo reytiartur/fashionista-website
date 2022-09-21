@@ -4,6 +4,8 @@ import './SignIn.scss'
 import FormInput from '../FormInput/FormInput'
 import Button from '../Button/Button'
 import { signInAuthUserWithEmail } from '../../utils/firebase/firebase'
+import { useContext } from 'react'
+import { UserContext } from '../../context/UserContext'
 
 const SignIn = ({ logGoogleUser }) => {
 
@@ -15,26 +17,29 @@ const SignIn = ({ logGoogleUser }) => {
     const [formField, setFormField] = useState(defaultField);
     const {  email, password } = formField;
 
+    const { setCurrentUser } = useContext(UserContext);
+
     const resetFormField = () => {
-        setFormField(defaultField)
+        setFormField(defaultField);
     }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormField({...formField, [name]: value})
+        setFormField({...formField, [name]: value});
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         try {
-            await signInAuthUserWithEmail(email, password)
-            resetFormField()
+            const { user } = await signInAuthUserWithEmail(email, password);
+            setCurrentUser(user);
+            resetFormField();
         } catch (err) {
             if(err.code === 'auth/wrong-password') {
-                alert('Incorrect password!')
+                alert('Incorrect password!');
             } else {
-                console.log('Sign In error:', err.message)
+                console.log('Sign In error:', err.message);
             }
             
         }
