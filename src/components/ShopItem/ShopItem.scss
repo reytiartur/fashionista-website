@@ -1,0 +1,46 @@
+.shop-item {
+    border-radius: 16px;
+    box-shadow: 2px 2px 10px gray;
+    overflow: hidden;
+
+    p{
+        margin: 0 10px;
+    }
+
+    .shop-item-img {
+        height: 80%;
+        width: 100%;
+        background-size: cover;
+        background-position: center;
+        
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .shop-item-info {
+        display: flex;
+        padding: 10px 10px;
+        justify-content: space-between;
+    }
+
+    .shop-item-name {
+
+    }
+
+    .shop-item-price {
+
+    }
+
+    .details {
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: underline;
+
+        &:hover {
+            cursor: pointer;
+            font-weight: 700;
+            text-decoration: none;
+        }
+    }
+}

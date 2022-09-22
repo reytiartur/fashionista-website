@@ -1,0 +1,27 @@
+.shop-container {
+    height: 90vh;
+    width: 80vw;
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+    grid-template-rows: 100px 1fr;
+    margin: 1rem auto;
+
+
+    .category-options {
+        grid-column: 1 / -1;
+        grid-row: 1 / 2;
+        justify-self: center;
+        align-self: center;
+    }
+
+    .filters {
+        
+    }
+
+    .catalog {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+}
