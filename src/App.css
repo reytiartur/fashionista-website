@@ -1,6 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
 body, #root, .App {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.App {
+  padding: 3rem 4rem;
+  padding-top: 150px;
 }

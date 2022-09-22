@@ -24,17 +24,22 @@
         a {
             display: flex;
             align-items: center;
+            padding: 0 1rem;        
+            
+
         }
     }
 
     .nav-icon {
-        padding: 0 1rem;
-        width: 64px;
+        width: 32px;
+        height: 32px;
     }
 
     .logo {
         font-family: 'Open Sans', sans-serif;
         font-size: 40px;
         font-weight: 800;
-    }
+    }       
+    
+
 }
