@@ -1,0 +1,41 @@
+.filter-option {
+    font-size: 20px;
+    text-decoration: underline;
+    list-style: none;
+    padding: 0 1rem;
+    margin: 10px 0;
+    text-transform: capitalize;
+
+    &:hover {
+        cursor: pointer;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+}
+
+.popper {
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    height: 200px;
+    border: 1px black solid;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    background: white;
+    font-size: 20px;
+    
+    .popper-item {
+        display: flex;
+        gap: 0.5rem;
+
+        .popper-label {
+            margin-right: auto;
+        }
+
+        .popper-checkbox {
+
+        }
+    }
+    
+}
