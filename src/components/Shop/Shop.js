@@ -39,6 +39,7 @@ const Shop = () => {
     const filterArray = () => {
       if(activeFilters.length) {
         const filteredArray = [...products].filter(item => item.tag.some(tag => activeFilters.includes(tag.toLowerCase())))
+        // const filteredArray = [...products].filter(item => activeFilters.every(filter => item.tag.includes(filter)) ? true : false)   
         setFilteredProducts(filteredArray);
       } else {
         setFilteredProducts(products);

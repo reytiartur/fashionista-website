@@ -12,9 +12,37 @@
         width: 100%;
         background-size: cover;
         background-position: center;
+        position: relative;
+        transition: 300ms ease-in-out;
+        display: flex;
+        justify-content: center;
+
+        button {
+            font-size: 1.6rem;
+            opacity: 0;
+            position: absolute;
+            bottom: -20px;
+            border: solid black 1px;
+            border-radius: 12px;
+            padding: 10px 20px;
+            transition: 400ms ease-in-out;
+            background-color: rgba(227, 227, 227, 0.23);
+            z-index: 200;
+
+            &:hover {
+                border: solid white 1px;
+                color: white;
+                cursor: pointer;
+            }
+        }
         
         &:hover {
             cursor: pointer;
+
+            button {
+                opacity: 1;
+                bottom: 30px;
+            }
         }
     }
 
