@@ -6,13 +6,7 @@ import FilterOption from '../FilterOption/FilterOption';
 import { FilterContext } from '../../context/FilterContext';
 
 
-const filterOptions = {
-    'size': ['s', 'm', 'l'],
-    'color': ['black', 'white', 'pink', 'beige'],
-    'fit': ['relaxed fit','slim fit', 'skinny fit', 'oversize'],
-    'pattern': ['patterned', 'spotted', 'solid color'],
-    'material': ['wool', 'cotton', 'leather', 'denim', 'satin']
-}
+
     
 
 const Filter = () => {
@@ -21,12 +15,9 @@ const Filter = () => {
     const { filterPrice, setFilterPrice } = useContext(FilterContext)
     const { min, max } = filterPrice
 
-    const { setCheckedValue } = useContext(FilterContext)
+    const { filterOptions } = useContext(FilterContext)
 
-    useEffect(() => {
-      const filterValuesArray = Object.values(filterOptions).flat()
-      filterValuesArray.forEach(filter => setCheckedValue(currentState => ({...currentState, [filter]: { ...currentState[filter], checked: false }})))
-    }, [])
+
 
     const handleSliderChange = (event, newValue) => {
         setFilterMinPrice(+newValue[0]) 
@@ -49,7 +40,7 @@ const Filter = () => {
                 {Object.entries(filterOptions).map((filter, i) => {
                     return (
                         <Fragment key={`${filter[0]}${i}`}>
-                            <FilterOption className='filter-option' filterName={filter[0]} filterValues={filter[1]} />
+                            <FilterOption className='filter-option' filterName={filter[0]} filterValue={filter[1]} />
                             <Divider key={`${i}${Math.random()}`} />
                         </Fragment>
                     )

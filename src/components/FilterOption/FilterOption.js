@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment, useContext, useEffect } from 'react'
 import './FilterOption.scss'
 import { useState } from 'react';
 import { Popper } from '@mui/material';
@@ -6,12 +6,16 @@ import { ClickAwayListener } from '@mui/material';
 import { FilterContext } from '../../context/FilterContext';
 
 
-const FilterOption = ({ filterName, filterValues }) => {
+const FilterOption = ({ filterName, filterValue }) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const { activeFilters, setActiveFilters } = useContext(FilterContext)
-  const { checkedValue, setCheckedValue } = useContext(FilterContext)
-  console.log(checkedValue)
+  const { checkedValue, setCheckedValue, activeFilters, setActiveFilters, filterOptions } = useContext(FilterContext)
+  
+  useEffect(() => {
+    const filterValuesArray = Object.values(filterOptions).flat()
+    filterValuesArray.map(filter => setCheckedValue(currentState => ({...currentState, [filter]: { ...currentState[filter], checked: false }})))
+  }, [])
+
 
   const handleOpenClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -25,7 +29,7 @@ const FilterOption = ({ filterName, filterValues }) => {
 
   const handleCheckbox = (event) => {
     const value = event.target.value;
-    setCheckedValue(currentState => ({...currentState, [value]: { ...currentState[value], checked: !currentState[value].checked }}))
+    setCheckedValue({...checkedValue, [value]: { ...checkedValue[value], checked: !checkedValue[value].checked }})
     if(activeFilters.includes(value)) {
       const deleteFromArray = activeFilters.filter(item => item !== value)
       setActiveFilters(deleteFromArray)
@@ -41,14 +45,16 @@ const FilterOption = ({ filterName, filterValues }) => {
       <Popper open={open} anchorEl={anchorEl} placement="right-start">
         <ClickAwayListener onClickAway={handleClickAway}>
           <div className='popper'>
-            {filterValues.map(value => {
-              return (
-                <div key={`${value}`} className='popper-item'>
-                  <label className='popper-label'>{value}</label>
-                  <input onChange={handleCheckbox} checked={checkedValue[value]["checked"]} type='checkbox' value={value} className="popper-checkbox" />
-                </div>
-              )
-            })}
+            {filterValue.map(value => {
+                return (
+                  <div key={`${value}`} className='popper-item'>
+                    <label className='popper-label'>{value}</label>
+                    <input onChange={handleCheckbox}
+                     checked={checkedValue[value]?.checked} 
+                     type='checkbox' value={value} className="popper-checkbox" />
+                  </div>
+                )}
+            )}
            </div>
         </ClickAwayListener>
       </Popper>
