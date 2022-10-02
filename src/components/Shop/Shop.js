@@ -3,13 +3,14 @@ import './Shop.scss'
 import ShopItem from '../ShopItem/ShopItem'
 import Filter from '../Filter/Filter'
 import { FilterContext } from '../../context/FilterContext'
+import { ProductsContext } from '../../context/ProductsContext'
 import { getCategoriesAndDocuments } from '../../utils/firebase/firebase'
+import CategoriesListMenu from '../CategoriesListMenu/CategoriesListMenu'
+
 
 const Shop = () => {
-  const [products, setProducts] = useState([])
-  const { activeFilters } = useContext(FilterContext);
-  const [filteredProducts, setFilteredProducts] = useState([])
-  const { filterPrice } = useContext(FilterContext)
+  const { products, setProducts, filteredProducts, setFilteredProducts } = useContext(ProductsContext)
+  const { activeFilters, filterPrice } = useContext(FilterContext);
   const { min, max } = filterPrice
   
   useEffect(() => {
@@ -49,7 +50,13 @@ const Shop = () => {
   }, [activeFilters])
 
   useEffect(() => {
-    const filteredArray = [...products].filter(item => { return item.tag.some(tag => activeFilters.includes(tag.toLowerCase())) && Number(item.price) > min && Number(item.price) < max; })
+    const filteredArray = [...products].filter(item => { 
+      if(activeFilters.length) {
+        return item.tag.some(tag => activeFilters.includes(tag.toLowerCase())) && Number(item.price) > min && Number(item.price) < max;
+      } else {
+        return Number(item.price) > min && Number(item.price) < max
+      }
+    })
     setFilteredProducts(filteredArray);
   }, [filterPrice])
   
@@ -58,7 +65,7 @@ const Shop = () => {
   return (
     <div className='shop-container'>
       <div className='category-name'>#Category#Name</div>
-      <div className="category-options"> CATEGORIES </div>  
+      <CategoriesListMenu />
       <Filter key='filter' />
       <div className="catalog">
         {filteredProducts.map(product => {

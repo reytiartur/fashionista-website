@@ -8,20 +8,23 @@ import { FilterProvider } from './context/FilterContext';
 import { CartProvider } from './context/CartContext';
 import { Elements } from '@stripe/react-stripe-js';
 import { stripePromise } from './utils/stripe/stripe';
+import { ProductsProvider } from './context/ProductsContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <UserProvider>
-        <FilterProvider>
-          <CartProvider>
-            <Elements stripe={stripePromise}>
-              <App />
-            </Elements>
-          </CartProvider>
-        </FilterProvider>
-      </UserProvider>
+      <ProductsProvider>
+        <UserProvider>
+          <FilterProvider>
+            <CartProvider>
+              <Elements stripe={stripePromise}>
+                <App />
+              </Elements>
+            </CartProvider>
+          </FilterProvider>
+        </UserProvider>
+      </ProductsProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
