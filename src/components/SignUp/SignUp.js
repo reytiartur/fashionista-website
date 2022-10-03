@@ -6,6 +6,7 @@ import { createAuthUserWithEmail, createUserFromAuth } from '../../utils/firebas
 import { useContext } from 'react'
 import { UserContext } from '../../context/UserContext'
 import '../SignIn/SignIn.scss'
+import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
     const defaultField = {
@@ -23,6 +24,8 @@ const SignUp = () => {
     const resetFormField = () => {
         setFormField(defaultField)
     }
+    
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -35,8 +38,9 @@ const SignUp = () => {
         try {
             const { user } = await createAuthUserWithEmail(email, password);
             await createUserFromAuth(user, { displayName })
-            setCurrentUser(user)
-            resetFormField()           
+            setCurrentUser({...user, displayName: displayName})
+            resetFormField()
+            navigate('/shop')      
         } catch (err) {
             if(err.code === 'auth/email-already-in-use') {
                 alert('Email already in use.')

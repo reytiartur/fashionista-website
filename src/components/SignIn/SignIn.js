@@ -3,16 +3,20 @@ import { useState } from 'react'
 import './SignIn.scss'
 import FormInput from '../FormInput/FormInput'
 import Button from '../Button/Button'
-import { signInAuthUserWithEmail } from '../../utils/firebase/firebase'
+import { signInAuthUserWithEmail, signInWithGooglePopup, createUserFromAuth } from '../../utils/firebase/firebase'
+
 import { useContext } from 'react'
 import { UserContext } from '../../context/UserContext'
+import { useNavigate } from 'react-router-dom'
 
-const SignIn = ({ logGoogleUser }) => {
+const SignIn = () => {
 
     const defaultField = {
         email: '',
         password: '',
     }
+
+    const navigate = useNavigate()
 
     const [formField, setFormField] = useState(defaultField);
     const {  email, password } = formField;
@@ -35,6 +39,7 @@ const SignIn = ({ logGoogleUser }) => {
             const { user } = await signInAuthUserWithEmail(email, password);
             setCurrentUser(user);
             resetFormField();
+            navigate('/shop')
         } catch (err) {
             if(err.code === 'auth/wrong-password') {
                 alert('Incorrect password!');
@@ -43,6 +48,13 @@ const SignIn = ({ logGoogleUser }) => {
             }
             
         }
+    }
+
+    const logGoogleUser = async() => {
+        const { user } = await signInWithGooglePopup()
+        await createUserFromAuth(user)
+        setCurrentUser(user)
+        navigate('/shop')
     }
 
   return (
