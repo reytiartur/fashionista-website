@@ -4,37 +4,18 @@ import ShopItem from '../ShopItem/ShopItem'
 import Filter from '../Filter/Filter'
 import { FilterContext } from '../../context/FilterContext'
 import { ProductsContext } from '../../context/ProductsContext'
-import { getCategoriesAndDocuments } from '../../utils/firebase/firebase'
 import CategoriesListMenu from '../CategoriesListMenu/CategoriesListMenu'
 
 
 const Shop = () => {
   const { products, setProducts, filteredProducts, setFilteredProducts } = useContext(ProductsContext)
-  const { activeFilters, filterPrice } = useContext(FilterContext);
+  const { activeFilters, setActiveFilters, filterPrice } = useContext(FilterContext);
   const { min, max } = filterPrice
   
-  useEffect(() => {
-    const getCategoriesMap = async () => {
-      const categoryMap = await getCategoriesAndDocuments('categories')
-      setProducts([])
-      setFilteredProducts([])
-      for(let category in categoryMap) {
-        categoryMap[category].map(item => {
-          const tagArray = []
-          for(const sub in item) {
-            if(sub !== 'name' && sub !== 'imgUrl' && sub !=='price') {
-              tagArray.push(item[sub])
-            }
-          }
-          item.tag = tagArray.flat();
-          setProducts(prevProducts => [...prevProducts, item])
-          setFilteredProducts(prevProducts => [...prevProducts, item])
-        })
-      }
-    }
-    getCategoriesMap()
-  }, [])
 
+  useEffect(() => {
+    return setActiveFilters([])
+  }, [])
 
   useEffect(() => {
     const filterArray = () => {

@@ -1,0 +1,20 @@
+.favorite-container {
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+    justify-items: center;
+    margin-inline: auto;
+
+    p {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .favorite-products-container {
+        display: grid;
+        justify-content: center;
+        gap: 3rem;
+        grid-template-columns: repeat(auto-fill, 260px);
+    }
+}
+

@@ -1,26 +1,46 @@
 import React from 'react'
 import './ShopItem.scss'
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { CartContext } from '../../context/CartContext';
+import { Checkbox } from '@mui/material';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
+import { ProductsContext } from '../../context/ProductsContext';
 
 
 const ShopItem = ({ product }) => {
-    const { name, fit, category, size, price, imgUrl } = product;
+    const { name, fit, category, size, price, imgUrl, slug, favorite } = product;
     const fullProductName = `${fit} ${name}`;
-    const { addItemToCart } = useContext(CartContext)
-    const addProductToCart = () => addItemToCart(product)
+    const { products, setProducts, filteredProducts, setFilteredProducts } = useContext(ProductsContext)
+
+    const navigate = useNavigate()
+
+    const moveToItem = (e) => {
+      if(e.target.classList.contains('click-to-move')) {
+        navigate(`/shop/${slug}`, {state: { product }})
+      }
+    }
+
+    const checkFavorites = (e) => {
+      const value = e.target.value
+        const deletedProduct = products.filter(item => item.name !== value)
+        setProducts([...deletedProduct, {...product, favorite: !favorite}])
+        const deletedFiltered = filteredProducts.filter(item => item.name !== value)
+        setFilteredProducts([...deletedFiltered, {...product, favorite: !favorite}])
+    }
+
+
 
   return (
     <div className='shop-item'>
-        <div className='shop-item-img' style={{ backgroundImage:`url(${imgUrl})` }}>
-          <button onClick={addProductToCart}>Add To Cart</button>
+        <div className='shop-item-img click-to-move' style={{ backgroundImage:`url(${imgUrl})` }} onClick={moveToItem} >
+          <Checkbox key={product.name} checked={product.favorite} onChange={checkFavorites} value={product.name} className='fav-btn' icon={<FavoriteBorder />} checkedIcon={<Favorite color='error' />} />
         </div>
         <div className="shop-item-info">
             <p className="shop-item-name">{ fullProductName.length > 23 ? `${fullProductName.substring(0, 23)}...` : fullProductName }</p>
             <p className="shop-item-price">{ `${price} €` }</p>
         </div>    
-        <Link><p className="details">Show details </p></Link>
+        <p className="details click-to-move" onClick={moveToItem}>Show details </p>
     </div>
   )
 }
