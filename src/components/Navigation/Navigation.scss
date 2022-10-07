@@ -25,9 +25,10 @@
             display: flex;
             align-items: center;
             padding: 0 1rem;        
-            
-
         }
+
+
+        
     }
 
     .nav-icon {
@@ -43,7 +44,48 @@
         font-family: 'Open Sans', sans-serif;
         font-size: 40px;
         font-weight: 800;
-    }       
+    }   
+
+    .auth-icon {
+        
+        &:hover {
+            cursor: pointer;
+        }
+    }
     
+
+
+}
+
+.account-popper {
+    z-index: 9001;
+    background-color: white;
+    box-shadow: 2px 2px 10px gray;
+    width: 150px;
+    height: 100px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+
+    .account-popper-elem {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 8px;
+        padding: 5px;
+
+        &:hover {
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        p {
+            font-size: 18px;
+            margin: 0;
+        }
+    }
+
+    
+
 
 }
