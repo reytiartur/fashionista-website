@@ -4,6 +4,7 @@ import Home from './components/Home/Home'
 import Authentication from './components/Authentication/Authentication';
 import Shop from './components/Shop/Shop';
 import Checkout from './components/Checkout/Checkout';
+import FullItemPage from './components/FullItemPage/FullItemPage';
 
 import { Route, Routes} from 'react-router-dom';
 
@@ -16,6 +17,7 @@ function App() {
           <Route path='auth' element={<Authentication />} />
           <Route path='shop' element={<Shop />} />
           <Route path='checkout' element={<Checkout />} />
+          <Route path='shop/:slug' element={<FullItemPage />} />
         </Route>
       </Routes>
     </div>
