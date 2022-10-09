@@ -18,6 +18,7 @@ import { Popper } from '@mui/material';
 import { ClickAwayListener } from '@mui/material';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
 import LogoutIcon from '@mui/icons-material/Logout';
+import BackButton from '../BackButton/BackButton'
 
 const Navigation = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
@@ -30,6 +31,7 @@ const Navigation = () => {
   const handleSignOut = async () => {
     await signOutUser();
     setCurrentUser(null);
+    navigate('/auth')
   }
 
   const handleOpenClick = (event) => {
@@ -49,6 +51,7 @@ const Navigation = () => {
   useEffect(() => {
     const checkForUser = async () => {
       if(currentUser) {
+        console.log(currentUser)
         await setUserInitials(currentUser.displayName.split(" ").map(word => word.slice(0, 1)).join(""));
       } else {
         await setUserInitials(null)
@@ -64,7 +67,7 @@ const Navigation = () => {
   return (
     <>
       <div className='navigation'>
-        <GiHamburgerMenu className='sidebar-icon nav-icon' />
+        <BackButton />
         <Link to="/"><div className='logo'>FASHIONISTA</div></Link>
         <div className='icons-container'>
           { currentUser ? (
