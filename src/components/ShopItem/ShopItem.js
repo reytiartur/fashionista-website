@@ -23,10 +23,10 @@ const ShopItem = ({ product }) => {
 
     const checkFavorites = (e) => {
       const value = e.target.value
-        const deletedProduct = products.filter(item => item.name !== value)
-        setProducts([...deletedProduct, {...product, favorite: !favorite}])
-        const deletedFiltered = filteredProducts.filter(item => item.name !== value)
-        setFilteredProducts([...deletedFiltered, {...product, favorite: !favorite}])
+      const checkedChanged = products.map(item => item.name === value ? {...item, favorite: !item.favorite} : item)
+      setProducts(checkedChanged)
+      const checkedChangedFiltered = filteredProducts.map(item => item.name === value ? {...item, favorite: !item.favorite} : item)
+      setFilteredProducts(checkedChangedFiltered)
     }
 
 
@@ -34,7 +34,7 @@ const ShopItem = ({ product }) => {
   return (
     <div className='shop-item'>
         <div className='shop-item-img click-to-move' style={{ backgroundImage:`url(${imgUrl})` }} onClick={moveToItem} >
-          <Checkbox key={product.name} checked={product.favorite} onChange={checkFavorites} value={product.name} className='fav-btn' icon={<FavoriteBorder />} checkedIcon={<Favorite color='error' />} />
+          <Checkbox key={product.name} checked={favorite} onChange={checkFavorites} value={name} className='fav-btn' icon={<FavoriteBorder />} checkedIcon={<Favorite color='error' />} />
         </div>
         <div className="shop-item-info">
             <p className="shop-item-name">{ fullProductName.length > 23 ? `${fullProductName.substring(0, 23)}...` : fullProductName }</p>

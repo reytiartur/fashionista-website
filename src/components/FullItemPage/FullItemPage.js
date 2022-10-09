@@ -14,16 +14,21 @@ const FullItemPage = () => {
   
   const { state } = useLocation()
   const { product } = state
-  const { name, fit, category, size, price, imgUrl, slug } = product;
-
+  const addProductToCart = () => addItemToCart(product)
+  const { products, setProducts, filteredProducts, setFilteredProducts } = useContext(ProductsContext)
+  const exactProduct = products.filter(item => item.name === product.name)[0]
+  const { name, fit, category, size, price, imgUrl, slug, favorite } = exactProduct;
 
   const { addItemToCart } = useContext(CartContext)
-  const addProductToCart = () => addItemToCart(product)
-  const { products, filteredProducts } = useContext(ProductsContext)
-  const recommendedProducts = [...filteredProducts]
-      .map(value => ({ value, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ value }) => value)
+
+
+  const checkFavorites = (e) => {
+    const value = e.target.value
+    const checkedChanged = products.map(item => item.name === value ? {...item, favorite: !item.favorite} : item)
+    setProducts(checkedChanged)
+    const checkedChangedFiltered = filteredProducts.map(item => item.name === value ? {...item, favorite: !item.favorite} : item)
+    setFilteredProducts(checkedChangedFiltered)
+  }
 
   return (
     <div className='product-page-container'>
@@ -33,7 +38,7 @@ const FullItemPage = () => {
       <div className="product-info">
         <div className='name-container'>
           <p className='product-name'>{fit} {name}</p>
-          <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite color='error' />} />
+          <Checkbox key={name} checked={favorite} onChange={checkFavorites} value={name} icon={<FavoriteBorder />} checkedIcon={<Favorite color='error' />} />
         </div>
         <span className="price">{price} €</span>
         {/* product details */}
@@ -51,7 +56,7 @@ const FullItemPage = () => {
       <div className="recommended-container">
         <div className='recommended-text'>Recommended for you:</div>
         <div className='recommended-products'>
-          {recommendedProducts.slice(0, 6).map(product => {
+          {[...filteredProducts].filter(product => product.name !== exactProduct.name).slice(0, 6).map(product => {
             return(
               <ShopItem product={product} key={product.name} />
             )
