@@ -1,0 +1,47 @@
+.new {
+    width: 80%;
+    height: 800px;
+    margin-inline: auto;
+    margin-top: 2rem;
+
+    .new-img {
+        width: 100%;
+        height: 90%;
+        background-size: cover;
+        background-position: center;
+        
+        
+        &:hover {
+            cursor: pointer;
+            
+            .new-text {
+                opacity: 1;
+            }
+        }
+
+        .new-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background-color: rgba($color: #40404065, $alpha: 0.5);
+            opacity: 0;
+            height: 100%;
+            transition: opacity 400ms ease-in;
+            
+
+            .text-new {
+                font-size: 48px;
+                font-weight: 800;
+                letter-spacing: 5px;      
+            }
+         
+            .text-shop {
+               font-size: 38px;
+               font-weight: 600;
+               letter-spacing: 2px; 
+            }
+        }
+    }
+}

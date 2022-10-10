@@ -19,7 +19,7 @@ export const ProductsProvider = ({children}) => {
     //     PRODUCTS.forEach(product => product.items ? Object.values(product.items).map(item => {
     //       const tagArray = []
     //       for(const sub in item) {
-    //         if(sub !== 'name' && sub !== 'imgUrl' && sub !=='price' && sub !=='slug' && sub !=='tag') { 
+    //         if(sub === 'category' || sub === 'color' || sub === 'fit' || sub === 'season' || sub === 'sex' || sub === 'material' || sub === 'neckline' || sub === 'sleeve length' || sub === 'waist rise' || sub === 'length' ) { 
     //           tagArray.push(item[sub])
     //         }
     //       }
