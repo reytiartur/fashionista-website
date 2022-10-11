@@ -91,3 +91,31 @@
         }
     }
 }
+
+.css-o4b71y-MuiAccordionSummary-content {
+
+    p {
+        font-size: 20px;
+        font-size: 600;
+        margin-block: 0;
+    }
+}
+
+.css-15v22id-MuiAccordionDetails-root {
+
+    .accordion-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+
+        .accordion-item {
+            font-size: 16px;
+            text-transform: capitalize;
+
+            :first-child {
+                font-weight: 600;
+                
+            }
+        }
+    }
+}

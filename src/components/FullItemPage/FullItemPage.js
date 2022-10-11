@@ -9,6 +9,12 @@ import { useContext } from 'react';
 import { CartContext } from '../../context/CartContext';
 import { ProductsContext } from '../../context/ProductsContext';
 import ShopItem from '../ShopItem/ShopItem';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+
 
 const FullItemPage = () => {
   
@@ -17,7 +23,9 @@ const FullItemPage = () => {
   const addProductToCart = () => addItemToCart(product)
   const { products, setProducts, filteredProducts, setFilteredProducts } = useContext(ProductsContext)
   const exactProduct = products.filter(item => item.name === product.name)[0]
-  const { name, fit, category, size, price, imgUrl, slug, favorite } = exactProduct;
+  const { name, fit, category, size, price, imgUrl, slug, favorite, } = exactProduct;
+
+  // season, sex, material, neckline, sleeve length, waist rise, length
 
   const { addItemToCart } = useContext(CartContext)
 
@@ -41,7 +49,25 @@ const FullItemPage = () => {
           <Checkbox key={name} checked={favorite} onChange={checkFavorites} value={name} icon={<FavoriteBorder />} checkedIcon={<Favorite color='error' />} />
         </div>
         <span className="price">{price} €</span>
-        {/* product details */}
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+            <p className='details'>See details...</p>
+          </AccordionSummary>
+          <AccordionDetails>
+            <div className='accordion-container'>
+              {Object.entries(exactProduct).map(item => {
+                if(item[0] === 'fit' || item[0] === 'season' || item[0] === 'sex' || item[0] === 'material' || item[0] === 'neckline' || item[0] === 'sleeve length' || item[0] === 'waist rise' || item[0] === 'length') {
+                  if(item[1] === null) {
+                    return;
+                  } else {
+                  return (
+                    <div className="accordion-item"><span>{item[0]}</span><span>: {item[1]}</span></div>
+                  )
+                }}
+              })}
+            </div>
+          </AccordionDetails>
+      </Accordion>
         <select className='sizes' name='sizes'>
           <option value="" disabled selected hidden>Select your size...</option>
           {size.map(value => {
