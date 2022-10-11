@@ -22,12 +22,12 @@
 }
 
 .inverted {
-    background: black;
-    color: white;
+    background: white;
+    color: black;
 
     &:hover {
-        background: white;
-        color: black;
+        background: black;
+        color: white;
     }
 }
 
