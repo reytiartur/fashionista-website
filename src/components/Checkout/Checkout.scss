@@ -1,5 +1,5 @@
 .checkout-container { 
-    width: 55%;  
+    width: 60%;  
     display: flex; 
     flex-direction: column; 
     align-items: center; 
@@ -8,8 +8,8 @@
     .checkout-header { 
         width: 100%; 
         padding: 10px 0; 
-        display: flex; 
-        justify-content: space-between; 
+        display: grid; 
+        grid-template-columns: repeat(4, 3fr) 2fr 1fr; 
         border-bottom: 1px solid darkgrey; 
         
         .header-block { 

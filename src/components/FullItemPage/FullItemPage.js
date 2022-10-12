@@ -5,7 +5,7 @@ import Button from '../../components/Button/Button'
 import { Checkbox } from '@mui/material';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { CartContext } from '../../context/CartContext';
 import { ProductsContext } from '../../context/ProductsContext';
 import ShopItem from '../ShopItem/ShopItem';
@@ -20,15 +20,13 @@ const FullItemPage = () => {
   
   const { state } = useLocation()
   const { product } = state
-  const addProductToCart = () => addItemToCart(product)
   const { products, setProducts, filteredProducts, setFilteredProducts } = useContext(ProductsContext)
   const exactProduct = products.filter(item => item.name === product.name)[0]
   const { name, fit, category, size, price, imgUrl, slug, favorite, } = exactProduct;
-
-  // season, sex, material, neckline, sleeve length, waist rise, length
+  const [chosenSize, setChosenSize] = useState(null)
 
   const { addItemToCart } = useContext(CartContext)
-
+  const addProductToCart = () => addItemToCart(product, chosenSize)
 
   const checkFavorites = (e) => {
     const value = e.target.value
@@ -36,6 +34,12 @@ const FullItemPage = () => {
     setProducts(checkedChanged)
     const checkedChangedFiltered = filteredProducts.map(item => item.name === value ? {...item, favorite: !item.favorite} : item)
     setFilteredProducts(checkedChangedFiltered)
+  }
+
+  const handleSelect = (e) => {
+    const value = e.target.value;
+    console.log(value)
+    setChosenSize(value)
   }
 
   return (
@@ -68,7 +72,7 @@ const FullItemPage = () => {
             </div>
           </AccordionDetails>
       </Accordion>
-        <select className='sizes' name='sizes'>
+        <select onChange={handleSelect} className='sizes' name='sizes'>
           <option value="" disabled selected hidden>Select your size...</option>
           {size.map(value => {
             value = value.toUpperCase();

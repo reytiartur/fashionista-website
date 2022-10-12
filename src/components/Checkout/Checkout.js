@@ -51,6 +51,9 @@ const Checkout = () => {
                 <span>Description</span>
             </div>
             <div className="header-block">
+                <span>Size</span>
+            </div>
+            <div className="header-block">
                 <span>Quantity</span>
             </div>
             <div className="header-block">
@@ -63,7 +66,7 @@ const Checkout = () => {
         <div className="checkout-items-container">
         {cartItems.length ? cartItems?.map(item => {
             return (
-                <CheckoutItem key={item.name} item={item} />
+                <CheckoutItem key={`${item.name} ${item.size}`} item={item} />
             )
         }) : (<p>Your cart is empty...</p>)}
         </div>

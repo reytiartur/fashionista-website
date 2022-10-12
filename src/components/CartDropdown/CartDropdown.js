@@ -7,11 +7,12 @@ import { CartContext } from '../../context/CartContext'
 import './CartDropdown.scss'
 
 const CartDropdown = () => {
-    const { cartItems } = useContext(CartContext)
+    const { cartItems, isCartOpen, setIsCartOpen } = useContext(CartContext)
 
     const navigate = useNavigate()
     const goToCheckout = () => {
         navigate('/checkout')
+        setIsCartOpen(!isCartOpen);
     }
 
   return (

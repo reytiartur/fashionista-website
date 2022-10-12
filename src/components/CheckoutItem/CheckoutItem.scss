@@ -1,14 +1,14 @@
-.checkout-item-container { 
+.checkout-item { 
     width: 100%; 
-    display: flex; 
-    min-height: 100px; 
+    display: grid;
+    grid-template-columns: repeat(4, 3fr) 2fr 1fr; 
+    min-height: 200px; 
     border-bottom: 1px solid darkgrey; 
     padding: 15px 0; 
     font-size: 20px; 
     align-items: center; 
     
-    .image-container { 
-        width: 23%; 
+    .image-container {  
         padding-right: 15px; 
         
         img { 
@@ -17,8 +17,8 @@
         } 
     } 
     
-    .name, .quantity, .price { 
-        width: 23%; 
+    .name, .quantity, .price, .size { 
+        width: 22%; 
     } 
     
     .quantity { 
