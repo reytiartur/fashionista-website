@@ -5,12 +5,16 @@ import Filter from '../Filter/Filter'
 import { FilterContext } from '../../context/FilterContext'
 import { ProductsContext } from '../../context/ProductsContext'
 import CategoriesListMenu from '../CategoriesListMenu/CategoriesListMenu'
+import { Pagination } from '@mui/material';
 
 
 const Shop = () => {
   const { products, setProducts, filteredProducts, setFilteredProducts } = useContext(ProductsContext)
   const { activeFilters, setActiveFilters, filterPrice, checkedValue, setCheckedValue } = useContext(FilterContext);
-  const { min, max } = filterPrice
+  const { min, max } = filterPrice;
+  
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage] = useState(12)
   
 
   useEffect(() => {
@@ -20,7 +24,7 @@ const Shop = () => {
   useEffect(() => {
     const filterArray = () => {
       if(activeFilters.length) {
-        const filteredArray = products.filter(item => item.tag.some(tag => activeFilters.includes(tag.toLowerCase())))
+        const filteredArray = products.filter(item => item.tag.some(tag => activeFilters.includes(tag?.toLowerCase())))
         // const filteredArray = [...products].filter(item => activeFilters.every(filter => item.tag.includes(filter)) ? true : false)   
         setFilteredProducts(filteredArray);
       } else {
@@ -47,6 +51,12 @@ const Shop = () => {
     setActiveFilters(deleteFilter)
   }
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem)
+
+  const pagesCount = Math.ceil(filteredProducts.length / itemsPerPage)
+
   return (
     <div className='shop-container'>
       <div className='filters-name'>{activeFilters.map(filter => {
@@ -60,12 +70,13 @@ const Shop = () => {
       <CategoriesListMenu />
       <Filter key='filter' />
       <div className="catalog">
-        {filteredProducts.map(product => {
+        {currentItems.map(product => {
           return (
             <ShopItem key={product.name} product={product} />
           )
         })}
       </div>
+      <Pagination onChange={(e, value) => setCurrentPage(value)} count={pagesCount} page={currentPage} siblingCount={2} boundaryCount={2} color='primary' />
     </div>
   )
 }

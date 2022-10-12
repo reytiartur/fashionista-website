@@ -20,10 +20,14 @@ export const FilterProvider = ({ children }) => {
 
     const filterOptions = {
         'size': ['s', 'm', 'l'],
-        'color': ['black', 'white', 'pink', 'beige'],
-        'fit': ['relaxed fit','slim fit', 'skinny fit', 'oversize'],
+        'color': ['black', 'white', 'grey', 'multi', 'brown', 'blue', 'green', 'red', 'orange', 'yellow', 'pink', 'beige'],
+        'fit': ['regular fit', 'relaxed fit', 'slim fit', 'skinny fit', 'oversized'],
         'pattern': ['patterned', 'spotted', 'solid color'],
-        'material': ['wool', 'cotton', 'leather', 'denim', 'satin']
+        'material': ['wool', 'cotton', 'leather', 'denim', 'satin'],
+        'neckline': ['round neck', 'deep neckline', 'turtleneck', 'polo-neck', 'v-neck'],
+        'sleeve length': ['3/4 sleeve', 'long sleeve', 'short sleeve', 'sleeveless'],
+        'waist rise': ['high waist', 'low waist', 'regular waist'],
+        'length': ['ankle length', 'cropped', 'regular', 'short', 'midi']
     }
 
     const value = { activeFilters, setActiveFilters, filterPrice, setFilterPrice, checkedValue, setCheckedValue, filterOptions }
