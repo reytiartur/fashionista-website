@@ -37,8 +37,8 @@ const SignUp = () => {
 
         try {
             const { user } = await createAuthUserWithEmail(email, password);
-            await createUserFromAuth(user, { displayName })
             setCurrentUser({...user, displayName: displayName})
+            await createUserFromAuth(user, { displayName })
             resetFormField()
             navigate('/shop')      
         } catch (err) {

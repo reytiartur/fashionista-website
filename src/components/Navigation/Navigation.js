@@ -3,7 +3,6 @@ import './Navigation.scss'
 
 import { BsCart4 } from 'react-icons/bs'
 import { CgProfile } from 'react-icons/cg'
-import { GiHamburgerMenu } from 'react-icons/gi'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { UserContext } from '../../context/UserContext'
@@ -30,8 +29,14 @@ const Navigation = () => {
 
   const handleSignOut = async () => {
     await signOutUser();
+    handleOpenClick()
     setCurrentUser(null);
     navigate('/auth')
+  }
+
+  const handleFavorite = () => {
+    handleOpenClick()
+    navigate('/favorite')
   }
 
   const handleOpenClick = (event) => {
@@ -51,7 +56,6 @@ const Navigation = () => {
   useEffect(() => {
     const checkForUser = async () => {
       if(currentUser) {
-        console.log(currentUser)
         await setUserInitials(currentUser.displayName.split(" ").map(word => word.slice(0, 1)).join(""));
       } else {
         await setUserInitials(null)
@@ -76,7 +80,7 @@ const Navigation = () => {
             <Popper disablePortal={true} open={open} anchorEl={anchorEl} placement="bottom">
               <ClickAwayListener onClickAway={handleClickAway}>
                 <div className='account-popper'>
-                  <div onClick={() => navigate('/favorite')} className='account-popper-elem'>
+                  <div onClick={handleFavorite} className='account-popper-elem'>
                     <p>Favorites</p>
                     <FavoriteBorder />
                   </div>

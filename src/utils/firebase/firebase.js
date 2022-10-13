@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
+import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
 import { getFirestore, doc, getDoc, setDoc, collection, writeBatch, query, getDocs } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -59,11 +59,15 @@ export const createUserFromAuth = async (user, additionalInfo = {}) => {
     const userSnapshot = await getDoc(userRef);
 
     if(!userSnapshot.exists()) {
-        const { displayName, email } = user;
+        const { email } = user;
+        const { displayName } = additionalInfo;
         const createdAt = new Date();
 
         try {
             await setDoc(userRef, { displayName, email, createdAt, ...additionalInfo })
+            await updateProfile(user, {
+                'displayName': displayName,
+            })
         } catch (error) {
             console.log('User was not created!', error.message)
         }
@@ -85,4 +89,3 @@ export const signInAuthUserWithEmail = async (email, password) => {
 }
 
 export const signOutUser = async () => await signOut(auth)
-
