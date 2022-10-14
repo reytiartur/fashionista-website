@@ -38,7 +38,7 @@ const FilterOption = ({ filterName, filterValue }) => {
     }
   }
 
-
+  
   return (
     <Fragment key={filterName} >
       <li onClick={handleOpenClick} className="filter-option">{filterName}</li>

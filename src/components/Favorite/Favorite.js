@@ -6,16 +6,17 @@ import { ProductsContext } from '../../context/ProductsContext'
 
 const Favorite = () => {
     const { products } = useContext(ProductsContext)
+    const favoriteProducts = products.filter(product => product.favorite);
 
   return (
     <div className='favorite-container'>
-        <p>Your Favorite Products:</p>
+        <p className='favorite-text'>Your Favorite Products:</p>
         <div className="favorite-products-container">
-            {products.filter(product => product.favorite).map(product => {
+            {favoriteProducts.length ? favoriteProducts.map(product => {
                 return(
                     <ShopItem key={product.name} product={product} />
                 )
-            })}
+            }) : (<div className='no-favorite'>You have no favorite products...</div>)}
         </div>
     </div>
   )

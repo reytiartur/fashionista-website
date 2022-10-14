@@ -25,7 +25,7 @@ const Shop = () => {
     const filterArray = () => {
       if(activeFilters.length) {
         const filteredArray = products.filter(item => item.tag.some(tag => activeFilters.includes(tag?.toLowerCase())))
-        // const filteredArray = [...products].filter(item => activeFilters.every(filter => item.tag.includes(filter)) ? true : false)   
+        
         setFilteredProducts(filteredArray);
       } else {
         setFilteredProducts(products);
@@ -35,9 +35,9 @@ const Shop = () => {
   }, [activeFilters])
 
   useEffect(() => {
-    const filteredArray = [...products].filter(item => { 
+    const filteredArray = [...products]?.filter(item => { 
       if(activeFilters.length) {
-        return item.tag.some(tag => activeFilters.includes(tag.toLowerCase())) && Number(item.price) > min && Number(item.price) < max;
+        return item.tag.some(tag => activeFilters.includes(tag?.toLowerCase())) && Number(item.price) > min && Number(item.price) < max;
       } else {
         return Number(item.price) > min && Number(item.price) < max
       }
@@ -70,11 +70,11 @@ const Shop = () => {
       <CategoriesListMenu />
       <Filter key='filter' />
       <div className="catalog">
-        {currentItems.map(product => {
+        {currentItems.length ? currentItems.map(product => {
           return (
             <ShopItem key={product.name} product={product} />
           )
-        })}
+        }) : (<p className='no-match'>No products matched your search...</p>)}
       </div>
       <Pagination onChange={(e, value) => setCurrentPage(value)} count={pagesCount} page={currentPage} siblingCount={2} boundaryCount={2} color='primary' />
     </div>

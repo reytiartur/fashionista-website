@@ -5,13 +5,14 @@
     display: flex;
     align-items: center;
     background: none;
+    color: white;
 
     &:hover {
         cursor: pointer;
     }
 
     span {
-        border-bottom: 2px solid black;
+        border-bottom: 2px solid white;;
         padding-bottom: 1px;
         padding-top: 3px;
 

@@ -71,7 +71,7 @@ const Navigation = () => {
   return (
     <>
       <div className='navigation'>
-        <BackButton />
+        { window.history.state ? <BackButton /> : <div className='back-button'></div>}
         <Link to="/"><div className='logo'>FASHIONISTA</div></Link>
         <div className='icons-container'>
           { currentUser ? (

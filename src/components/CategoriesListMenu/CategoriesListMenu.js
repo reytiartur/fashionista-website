@@ -42,6 +42,9 @@ const CategoriesListMenu = () => {
       const key = category.toLowerCase()
       if(value === 'show all') {
         setFilteredProducts(products[key])
+      } else if(value === 'new') {
+        const newProducts = products[key].filter(product => product.new)
+        setFilteredProducts(newProducts)
       } else {
         const categoryArray = products[key].filter(item => item.category.includes(value.toLowerCase()))
         setFilteredProducts(categoryArray)

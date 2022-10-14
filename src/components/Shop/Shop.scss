@@ -33,10 +33,15 @@
     }
 
     .category-options {
-        grid-column: 1 / -1;
+        grid-column: 2 / -1;
         grid-row: 1 / 2;
         justify-self: center;
         align-self: center;
+    }
+
+    .filter {
+        grid-column: 1 / 2;
+        grid-row: 3 / -1;
     }
 
     .catalog {
@@ -47,12 +52,22 @@
         padding: 1.5rem;
         overflow-y: auto;
         justify-content: center;
+        grid-column: 2 / -1;
+        grid-row: 3 / 4;
+
+        .no-match {
+            align-self: center;
+            font-size: 28px;
+            font-weight: 700;
+            grid-column: 1 / -1;
+            text-align: center;
+        }
     }
 }
 
 .MuiPagination-root {
     display: flex;
-    grid-column: 1 / -1;
+    grid-column: 2 / -1;
     grid-row: -1 / -1;
     justify-content: center;
     padding-bottom: 1rem;

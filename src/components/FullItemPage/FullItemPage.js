@@ -25,8 +25,12 @@ const FullItemPage = () => {
   const { name, fit, category, size, price, imgUrl, slug, favorite, } = exactProduct;
   const [chosenSize, setChosenSize] = useState(null)
 
-  const { addItemToCart } = useContext(CartContext)
-  const addProductToCart = () => addItemToCart(product, chosenSize)
+  const { addItemToCart, setIsCartOpen } = useContext(CartContext)
+
+  const addProductToCart = () => {
+    addItemToCart(product, chosenSize)
+    setIsCartOpen(true)
+  }
 
   const checkFavorites = (e) => {
     const value = e.target.value
@@ -38,7 +42,6 @@ const FullItemPage = () => {
 
   const handleSelect = (e) => {
     const value = e.target.value;
-    console.log(value)
     setChosenSize(value)
   }
 
