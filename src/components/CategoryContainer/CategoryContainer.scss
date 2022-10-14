@@ -12,6 +12,8 @@
     background-repeat: no-repeat;
     background-size: 100%;
     position: relative;
+    border-radius: 16px;
+    overflow: hidden;
     transition: 300ms ease-in-out;
 
     .title {
@@ -27,6 +29,8 @@
     }
 
     &:hover {
+        cursor: pointer;
+        
         .title {
             opacity: 1;
         }

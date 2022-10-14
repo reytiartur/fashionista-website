@@ -1,20 +1,31 @@
 import React from 'react'
 import CategoryContainer from '../CategoryContainer/CategoryContainer'
-import CATEGORIES from '../../categories.json'
 import './Categories.scss'
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { getCategoriesAndDocuments } from '../../utils/firebase/firebase'
 
 
 const Categories = () => {
     
-  const [categories] = useState(CATEGORIES)
+  const [categories, setCategories] = useState([])
+
+
+  
+  useEffect(() => {
+    const getCategoriesMap = async () => {
+    const categoryMap = await getCategoriesAndDocuments('categories')
+    setCategories(categoryMap)
+    }
+    getCategoriesMap()
+  }, [])
+
+
 
   return (
     <div className='categories-container'>
-        {categories.map((category) => {
+        {Object.entries(categories).map((category) => {
             return(
-                <Link key={category.name} to='/shop'><CategoryContainer category={category} /></Link>
+              <CategoryContainer categories={categories} key={category[0]} categoryName={category[0]} categoryItems={category[1]} />
             )
         })}
     </div>
