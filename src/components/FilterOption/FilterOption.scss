@@ -11,31 +11,35 @@
         font-weight: 600;
         text-decoration: none;
     }
-
 }
 
-.popper {
+.filter-name {
+    margin: 0;
+    text-transform: capitalize;
+}
+
+.accordion-details {
     display: flex;
     flex-direction: column;
-    width: 150px;
-    height: 200px;
-    border: 1px black solid;
-    border-radius: 10px;
     padding: 0.5rem 1rem;
     background: white;
     font-size: 20px;
     
-    .popper-item {
+    .accordion-item {
         display: flex;
         gap: 0.5rem;
 
-        .popper-label {
+        .accordion-label {
             margin-right: auto;
+            text-transform: capitalize;
         }
+    } 
+}
 
-        .popper-checkbox {
+.MuiAccordion-root.css-1elwnq4-MuiPaper-root-MuiAccordion-root {
+    background: rgb(var(--background-color));
+}
 
-        }
-    }
-    
+.MuiAccordionDetails-root.css-15v22id-MuiAccordionDetails-root {
+    background: rgb(var(--background-color));
 }

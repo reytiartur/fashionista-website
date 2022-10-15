@@ -9,7 +9,7 @@ import { ProductsContext } from '../../context/ProductsContext';
 
 
 const ShopItem = ({ product }) => {
-    const { name, fit, category, size, price, imgUrl, slug, favorite } = product;
+    const { name, fit, price, imgUrl, slug, favorite } = product;
     const fullProductName = `${fit} ${name}`;
     const { products, setProducts, filteredProducts, setFilteredProducts } = useContext(ProductsContext)
 
@@ -34,6 +34,7 @@ const ShopItem = ({ product }) => {
   return (
     <div className='shop-item'>
         <div className='shop-item-img click-to-move' style={{ backgroundImage:`url(${imgUrl})` }} onClick={moveToItem} >
+          { product.new ? (<span className='new-icon'>New!</span>) : null }
           <Checkbox key={product.name} checked={favorite} onChange={checkFavorites} value={name} className='fav-btn' icon={<FavoriteBorder />} checkedIcon={<Favorite color='error' />} />
         </div>
         <div className="shop-item-info">

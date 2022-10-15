@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { ProductsContext } from '../../context/ProductsContext';
 import './NewCollection.scss'
 import { useNavigate } from 'react-router-dom';
+import { StylesProvider } from "@material-ui/core/styles";
 
 
 const NewCollection = () => {
@@ -38,17 +39,17 @@ const NewCollection = () => {
                 <p className='text-shop'>Shop Now</p>
             </div>
         </div>
-        <MobileStepper steps={maxSteps} position="static" activeStep={activeStep} 
-            nextButton={
-            <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}> 
-                <span>Next</span><KeyboardArrowRight />
-            </Button>
-        }
-            backButton={
-            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-                <KeyboardArrowLeft /><span>Back</span>
-            </Button>
-        }/>
+        <StylesProvider injectFirst>
+            <MobileStepper steps={maxSteps} position="static" activeStep={activeStep} 
+                nextButton={
+                <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}> 
+                    <span>Next</span><KeyboardArrowRight />
+                </Button>}
+                backButton={
+                <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                    <KeyboardArrowLeft /><span>Back</span>
+                </Button>}/>
+        </StylesProvider>
     </div>
   )
 }

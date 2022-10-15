@@ -4,7 +4,7 @@ import { Divider } from '@mui/material';
 import { Slider } from '@mui/material';
 import FilterOption from '../FilterOption/FilterOption';
 import { FilterContext } from '../../context/FilterContext';
-
+import { StylesProvider } from "@material-ui/core/styles";
 
 
     
@@ -31,21 +31,21 @@ const Filter = () => {
 
     return (
         <div className='filter'>
-            <div className="price-filter">
-                <p>Price: </p>
-                <Slider onChange={handleSliderChange} value={[min, max]} valueLabelDisplay="on" disableSwap style={{width:"70%"}} min={0} max={250} />  
-            </div>
-            <Divider />
-            <ul className='filter-list'>
-                {Object.entries(filterOptions).map((filter, i) => {
-                    return (
-                        <Fragment key={`${filter[0]}${i}`}>
-                            <FilterOption className='filter-option' filterName={filter[0]} filterValue={filter[1]} />
-                            <Divider key={`${i}${Math.random()}`} />
-                        </Fragment>
-                    )
-                })}
-            </ul>
+            <StylesProvider injectFirst>
+                <div className="price-filter">
+                    <p>Price: </p>
+                    <Slider onChange={handleSliderChange} value={[min, max]} valueLabelDisplay="on" disableSwap style={{width:"70%"}} min={0} max={250} />  
+                </div>
+            </StylesProvider>
+                <Divider />
+                <div className='filter-list'>
+                    {Object.entries(filterOptions).map((filter, i) => {
+                        return (
+                            <FilterOption key={`${filter[0]}${i}`} className='filter-option' filterName={filter[0]} filterValue={filter[1]} />
+                        )
+                    })}
+                </div>
+            
         </div>   
     )
 }

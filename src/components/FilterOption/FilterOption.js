@@ -1,31 +1,21 @@
-import React, { Fragment, useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import './FilterOption.scss'
-import { useState } from 'react';
-import { Popper } from '@mui/material';
-import { ClickAwayListener } from '@mui/material';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FilterContext } from '../../context/FilterContext';
+import { StylesProvider } from "@material-ui/core/styles";
 
 
 const FilterOption = ({ filterName, filterValue }) => {
 
-  const [anchorEl, setAnchorEl] = useState(null);
   const { checkedValue, setCheckedValue, activeFilters, setActiveFilters, filterOptions } = useContext(FilterContext)
   
   useEffect(() => {
     const filterValuesArray = Object.values(filterOptions).flat()
     filterValuesArray.map(filter => setCheckedValue(currentState => ({...currentState, [filter]: { ...currentState[filter], checked: false }})))
   }, [])
-
-
-  const handleOpenClick = (event) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
-  };
-
-  let open = Boolean(anchorEl);
-
-  const handleClickAway = () => {
-    setAnchorEl(null)
-  }
 
   const handleCheckbox = (event) => {
     const value = event.target.value;
@@ -40,25 +30,22 @@ const FilterOption = ({ filterName, filterValue }) => {
 
   
   return (
-    <Fragment key={filterName} >
-      <li onClick={handleOpenClick} className="filter-option">{filterName}</li>
-      <Popper open={open} anchorEl={anchorEl} placement="right-start">
-        <ClickAwayListener onClickAway={handleClickAway}>
-          <div className='popper'>
-            {filterValue.map(value => {
-                return (
-                  <div key={`${value}`} className='popper-item'>
-                    <label className='popper-label'>{value}</label>
-                    <input onChange={handleCheckbox}
-                     checked={checkedValue[value]?.checked} 
-                     type='checkbox' value={value} className="popper-checkbox" />
-                  </div>
-                )}
-            )}
-           </div>
-        </ClickAwayListener>
-      </Popper>
-    </Fragment>
+    <StylesProvider injectFirst>
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <p className='filter-name'>{ filterName }</p>
+        </AccordionSummary>
+        <AccordionDetails className='accordion-details'>
+          {filterValue?.map(value => {
+            return (
+            <div className='accordion-item' key={value} >
+              <label className='accordion-label'>{value}</label>
+              <input onChange={handleCheckbox} checked={!!checkedValue[value]?.checked} type='checkbox' value={value} className="accordion-checkbox" />
+            </div>            
+          )})}
+        </AccordionDetails>
+      </Accordion>
+    </StylesProvider>
   )
 }
 

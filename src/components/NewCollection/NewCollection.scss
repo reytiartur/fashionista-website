@@ -45,3 +45,22 @@
         }
     }
 }
+
+.MuiMobileStepper-root.css-rh92k-MuiPaper-root-MuiMobileStepper-root {
+    background-color: rgb(var(--background-color));
+
+
+}
+
+.MuiMobileStepper-dot.MuiMobileStepper-dotActive.css-26w9jf-MuiMobileStepper-dot {
+    background-color: rgb(var(--primary-dark-color)); 
+}
+
+.MuiButton-root.css-1knaqv7-MuiButtonBase-root-MuiButton-root {
+    color: rgb(var(--primary-dark-color));
+    font-size: 18px;
+
+    &:hover {
+        background-color: rgba($color: var(--primary-light-color), $alpha: 0.1);
+    }
+}
