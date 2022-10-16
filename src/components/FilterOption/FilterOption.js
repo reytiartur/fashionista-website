@@ -6,6 +6,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FilterContext } from '../../context/FilterContext';
 import { StylesProvider } from "@material-ui/core/styles";
+import Checkbox from '../Checkbox/Checkbox';
 
 
 const FilterOption = ({ filterName, filterValue }) => {
@@ -38,10 +39,7 @@ const FilterOption = ({ filterName, filterValue }) => {
         <AccordionDetails className='accordion-details'>
           {filterValue?.map(value => {
             return (
-            <div className='accordion-item' key={value} >
-              <label className='accordion-label'>{value}</label>
-              <input onChange={handleCheckbox} checked={!!checkedValue[value]?.checked} type='checkbox' value={value} className="accordion-checkbox" />
-            </div>            
+              <Checkbox key={value} handleCheckbox={handleCheckbox} value={value} checkIfChecked={!!checkedValue[value]?.checked}  />        
           )})}
         </AccordionDetails>
       </Accordion>

@@ -16,6 +16,7 @@
 .filter-name {
     margin: 0;
     text-transform: capitalize;
+    letter-spacing: 1px;
 }
 
 .accordion-details {
@@ -25,15 +26,7 @@
     background: white;
     font-size: 20px;
     
-    .accordion-item {
-        display: flex;
-        gap: 0.5rem;
-
-        .accordion-label {
-            margin-right: auto;
-            text-transform: capitalize;
-        }
-    } 
+    
 }
 
 .MuiAccordion-root.css-1elwnq4-MuiPaper-root-MuiAccordion-root {
