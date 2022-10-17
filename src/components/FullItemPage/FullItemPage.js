@@ -13,6 +13,11 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 
@@ -24,12 +29,17 @@ const FullItemPage = () => {
   const exactProduct = products.filter(item => item.name === product.name)[0]
   const { name, fit, category, size, price, imgUrl, slug, favorite, } = exactProduct;
   const [chosenSize, setChosenSize] = useState(null)
+  const [expanded, setExpanded] = useState(false)
 
   const { addItemToCart, setIsCartOpen } = useContext(CartContext)
 
   const addProductToCart = () => {
-    addItemToCart(product, chosenSize)
-    setIsCartOpen(true)
+    if(chosenSize === null) {
+      setExpanded(true)
+    } else {
+      addItemToCart(product, chosenSize)
+      setIsCartOpen(true)
+    }
   }
 
   const checkFavorites = (e) => {
@@ -40,8 +50,15 @@ const FullItemPage = () => {
     setFilteredProducts(checkedChangedFiltered)
   }
 
-  const handleSelect = (e) => {
-    const value = e.target.value;
+  const openSizeSelector = () => {
+    setExpanded(true)
+  }
+
+  const closeSizeSelector = () => {
+    setExpanded(false)
+  }
+
+  const handleSelectSize = (value) => {
     setChosenSize(value)
   }
 
@@ -68,22 +85,37 @@ const FullItemPage = () => {
                     return;
                   } else {
                   return (
-                    <div className="accordion-item"><span>{item[0]}</span><span>: {item[1]}</span></div>
+                    <div key={`${item[0]} ${item[1]}`} className="accordion-item"><span>{item[0]}</span><span>: {item[1]}</span></div>
                   )
                 }}
               })}
             </div>
           </AccordionDetails>
       </Accordion>
-        <select onChange={handleSelect} className='sizes' name='sizes'>
-          <option value="" disabled selected hidden>Select your size...</option>
-          {size.map(value => {
-            value = value.toUpperCase();
-            return (
-              <option key={value} value={value}>{value}</option>
-            )
-          })}
-        </select>
+        <div className='sizes'>
+          <div onClick={openSizeSelector} className='size-selector'>
+            <span>Select your size:</span>
+            {chosenSize ? (<button>{chosenSize}</button>) : null}
+            <ExpandMoreIcon />
+          </div>
+          <Dialog open={expanded}>
+            <DialogTitle>
+              <span>Select your size:</span>
+              <CloseIcon onClick={closeSizeSelector} />
+            </DialogTitle>
+            <DialogContent dividers>
+              <div className='size-variants'>{size.map(value => {
+                  return (
+                    <div className={`size-item ${chosenSize == value && 'active'}`} onClick={(e) => handleSelectSize(value)} value={value} key={value}>{value.toUpperCase()}</div>
+                  )
+                })}
+              </div>
+            </DialogContent>
+            <DialogActions>
+                <Button disabled={chosenSize === null ? true : false} onClick={closeSizeSelector} buttonType='inverted'>Confirm</Button>
+            </DialogActions>
+          </Dialog>
+        </div>
         <Button onClick={addProductToCart}>Add To Cart</Button>
       </div>
       <div className="recommended-container">

@@ -1,4 +1,7 @@
 .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     min-width: 180px;
     width: fit-content;
     height: 50px;
@@ -32,10 +35,17 @@
 }
 
 .google {
-    background: blue;
+    background: #4285F4;
     color: white;
 
     &:hover {
-        text-shadow: 2px 2px 2px blue;
+        text-shadow: 2px 2px 2px #4285F4;
     }
+}
+
+.google-icon {
+    height: 35px;
+    width: 35px;
+    margin-right: .75em;
+    border-radius: 50%;
 }

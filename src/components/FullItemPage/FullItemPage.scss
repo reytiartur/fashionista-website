@@ -52,10 +52,46 @@
         }
 
         .sizes {
-            height: 2.5rem;
-            font-size: 18px;
-            padding-inline: .5em;
-            width: fit-content;
+            font-size: 20px;
+            margin-block: .5em;
+            font-weight: 600;
+
+            .size-selector {
+                display: flex;
+                align-items: center;
+                width: 50%;
+                border-bottom: 1px solid rgb(var(--primary-light-color));
+                padding-inline: 1rem;
+                padding-block: .75rem;
+                box-shadow: 1px 5px 12px rgb(180, 180, 180);
+
+                span {
+                    font-weight: 500
+                }
+
+                button {
+                    width: 24px;
+                    height: 24px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    background: rgb(86, 86, 86);
+                    color: white;
+                    border-radius: 50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-left: 125px;
+                    outline: none;
+                }
+
+                .css-i4bv87-MuiSvgIcon-root {
+                    margin-left: auto;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
         }
     }
 
@@ -82,15 +118,16 @@
             .shop-item {
                 flex: 1;
                 height: 80%;
-
-                .shop-item-img {
-                    height: 180px;
-                }
-
             }
         }
     }
+
+    .MuiAccordion-root.css-1elwnq4-MuiPaper-root-MuiAccordion-root {
+        width: 50%;
+    }
 }
+
+
 
 .css-o4b71y-MuiAccordionSummary-content {
 
@@ -108,8 +145,12 @@
         flex-wrap: wrap;
         gap: 1rem;
 
+        .details {
+            font-size:20px
+        }
+
         .accordion-item {
-            font-size: 16px;
+            font-size: 18px;
             text-transform: capitalize;
 
             :first-child {
@@ -118,4 +159,52 @@
             }
         }
     }
+}
+
+.MuiPaper-root.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+    width: 250px;
+    height: 325px;
+
+    .css-bdhsul-MuiTypography-root-MuiDialogTitle-root {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 1rem;
+
+        .css-i4bv87-MuiSvgIcon-root {
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .css-1t4vnk2-MuiDialogContent-root {
+        padding-inline: 0;
+        .size-variants {
+
+            .size-item {
+                text-transform: uppercase;
+                font-size: 20px;
+                font-weight: 600;
+                padding: 15px 30px;
+
+                &:hover {
+                    background-color: rgb(var(--primary-light-color));
+                    cursor: pointer;
+                }
+
+            }
+        } 
+    }
+
+    .css-hlj6pa-MuiDialogActions-root {
+        display: flex;
+        justify-content: center;
+    }
+    
+}
+
+.active {
+    background-color: rgb(var(--primary-light-color));
 }
