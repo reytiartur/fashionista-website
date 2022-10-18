@@ -1,14 +1,20 @@
 .category-options {
-    
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+
     button {
         border: none;
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 500;
-        text-decoration: underline;
         background: none;
+        width: 100px;
+        height: 55px;
 
         &:hover {
             font-weight: 600;
+            text-decoration: underline;
         }
     }
 
@@ -16,7 +22,7 @@
 }
 
 .categories-options {
-    width: 400px;
+    width: 150px;
     display: flex;
     justify-content: center;
     padding: 10px;
@@ -24,6 +30,7 @@
     box-shadow: 0px 2px 20px rgb(88, 88, 88);
     border-radius: 10px;
     font-size: 18px;
+    z-index: 500;
     
 
     .options-list {

@@ -1,4 +1,4 @@
-import React ,{ useContext, useEffect, useState } from 'react'
+import React ,{ useContext, useEffect, useState, useRef } from 'react'
 import './Shop.scss'
 import ShopItem from '../ShopItem/ShopItem'
 import Filter from '../Filter/Filter'
@@ -9,7 +9,7 @@ import { Pagination } from '@mui/material';
 
 
 const Shop = () => {
-  const { products, setProducts, filteredProducts, setFilteredProducts } = useContext(ProductsContext)
+  const { products, setProducts, filteredProducts, setFilteredProducts, prevFilteredProducts, filteredCategory } = useContext(ProductsContext)
   const { activeFilters, setActiveFilters, filterPrice, checkedValue, setCheckedValue } = useContext(FilterContext);
   const { min, max } = filterPrice;
   
@@ -21,18 +21,18 @@ const Shop = () => {
     return setActiveFilters([])
   }, [])
 
+
   useEffect(() => {
     const filterArray = () => {
       if(activeFilters.length) {
-        const filteredArray = products.filter(item => item.tag.some(tag => activeFilters.includes(tag?.toLowerCase())))
-        
+        const filteredArray = filteredCategory.filter(item => item.tag.some(tag => activeFilters.includes(tag?.toLowerCase())))
         setFilteredProducts(filteredArray);
       } else {
-        setFilteredProducts(products);
+        setFilteredProducts(prevFilteredProducts.current);
       }
     }
     filterArray()   
-  }, [activeFilters])
+  }, [activeFilters, filteredCategory])
 
   useEffect(() => {
     const filteredArray = [...products]?.filter(item => { 
@@ -53,16 +53,16 @@ const Shop = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem)
+  const currentItems = filteredProducts?.slice(indexOfFirstItem, indexOfLastItem)
 
-  const pagesCount = Math.ceil(filteredProducts.length / itemsPerPage)
+  const pagesCount = Math.ceil(filteredProducts?.length / itemsPerPage)
 
   return (
     <div className='shop-container'>
       <div className='filters-name'>{activeFilters.map(filter => {
         return (
           <div key={filter.toLowerCase()} className='filter-button'>
-            <span >{filter.toLowerCase()}</span>
+            <span >{filter}</span>
             <div onClick={() => handleDeleteFilter(filter)}>&#x2716;</div>
           </div>
           )

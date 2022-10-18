@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useRef } from "react";
 import { getCategoriesAndDocuments, addCollectionAndDocuments } from "../utils/firebase/firebase";
 // import PRODUCTS from "../products";
 
@@ -7,11 +7,21 @@ export const ProductsContext = createContext({
     setProducts: () => {},
     filteredProducts: [],
     setFilteredProducts: () => {},
+    categories: {},
+    setCategories: () => {},
+    filteredCategory: [],
+    setFilteredCategory: () => {},
+    prevFilteredProducts: [],
 })
 
 export const ProductsProvider = ({children}) => {
     const [products, setProducts] = useState([])
     const [filteredProducts, setFilteredProducts] = useState([])
+    const [categories, setCategories] = useState({})
+    const prevFilteredProducts = useRef(filteredProducts);
+    const [filteredCategory, setFilteredCategory] = useState([])
+
+
 
     // !!! Helper Firestore Database Update Function !!!
     // useEffect(() => {
@@ -52,7 +62,16 @@ export const ProductsProvider = ({children}) => {
     getCategoriesMap()
   }, [])
 
-    const value = { products, setProducts, filteredProducts, setFilteredProducts }
+  useEffect(() => {
+    const getCategoriesMap = async () => {
+      const categoryMap = await getCategoriesAndDocuments('categories')
+      const all = await Object.values(categoryMap).reduce((acc, arr) => acc.concat(arr), [])
+      await setCategories({ all, ...categoryMap })
+    }
+    getCategoriesMap()
+  }, [])
+
+    const value = { products, setProducts, filteredProducts, setFilteredProducts, categories, setCategories, prevFilteredProducts, filteredCategory, setFilteredCategory }
 
     return <ProductsContext.Provider value={value}>{children}</ProductsContext.Provider>
 }

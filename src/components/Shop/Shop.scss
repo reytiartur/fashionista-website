@@ -24,6 +24,10 @@
             align-items: center;
             gap: 5px;
 
+            span {
+                text-transform: capitalize;
+            }
+
             &:hover {
                 cursor: pointer;
                 background: peachpuff;
