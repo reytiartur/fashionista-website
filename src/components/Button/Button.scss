@@ -43,6 +43,19 @@
     }
 }
 
+.disabled {
+    background: white;
+    color: rgb(195, 195, 195);
+    border-color: rgb(195, 195, 195);
+
+    &:hover {
+        background: white;
+        color: rgb(195, 195, 195);
+        border-color: rgb(195, 195, 195);
+        cursor: alias;
+    }
+}
+
 .google-icon {
     height: 35px;
     width: 35px;

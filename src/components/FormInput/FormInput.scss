@@ -1,5 +1,5 @@
 @mixin shrinkLabel { 
-    top: -12px; 
+    top: -14px; 
     font-size: 16px;
     color: gray; 
 } 
@@ -14,7 +14,7 @@
         margin-bottom: 25px;
         padding: 10px 0 5px 13px;
         background: none;
-        background-color: white;
+        background-color: rgb(var(--background-color));
         border: none;
         border-bottom: 1px solid;
         font-size: 20px;

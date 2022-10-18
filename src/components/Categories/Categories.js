@@ -1,33 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import CategoryContainer from '../CategoryContainer/CategoryContainer'
 import './Categories.scss'
-import { useState, useEffect } from 'react'
-import { getCategoriesAndDocuments } from '../../utils/firebase/firebase'
+import { ProductsContext } from '../../context/ProductsContext'
 
 
 const Categories = () => {
     
-  const [categories, setCategories] = useState([])
-
-
-  
-  useEffect(() => {
-    const getCategoriesMap = async () => {
-    const categoryMap = await getCategoriesAndDocuments('categories')
-    setCategories(categoryMap)
-    }
-    getCategoriesMap()
-  }, [])
-
+const { categories } = useContext(ProductsContext)
 
 
   return (
-    <div className='categories-container'>
-        {Object.entries(categories).map((category) => {
-            return(
-              <CategoryContainer categories={categories} key={category[0]} categoryName={category[0]} categoryItems={category[1]} />
-            )
-        })}
+    <div className='main-container'>
+      <div className='text'>The most popular categories:</div>
+      <div className='categories-container'>
+          {Object.entries(categories).map((category) => {
+              return(
+                <CategoryContainer categories={categories} key={category[0]} categoryName={category[0]} categoryItems={category[1]} />
+              )
+          })}
+      </div>
     </div>
   )
 }

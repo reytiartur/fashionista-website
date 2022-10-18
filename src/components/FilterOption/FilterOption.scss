@@ -25,8 +25,6 @@
     padding: 0.5rem 1rem;
     background: white;
     font-size: 20px;
-    
-    
 }
 
 .MuiAccordion-root.css-1elwnq4-MuiPaper-root-MuiAccordion-root {
@@ -35,4 +33,8 @@
 
 .MuiAccordionDetails-root.css-15v22id-MuiAccordionDetails-root {
     background: rgb(var(--background-color));
+}
+
+.css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded {
+    font-weight: 600;
 }

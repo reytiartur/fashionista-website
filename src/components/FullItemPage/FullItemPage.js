@@ -54,6 +54,11 @@ const FullItemPage = () => {
     setExpanded(true)
   }
 
+  const exitSizeSelector = () => {
+    setChosenSize(null)
+    setExpanded(false)
+  }
+
   const closeSizeSelector = () => {
     setExpanded(false)
   }
@@ -101,18 +106,18 @@ const FullItemPage = () => {
           <Dialog open={expanded}>
             <DialogTitle>
               <span>Select your size:</span>
-              <CloseIcon onClick={closeSizeSelector} />
+              <CloseIcon onClick={exitSizeSelector} />
             </DialogTitle>
             <DialogContent dividers>
               <div className='size-variants'>{size.map(value => {
                   return (
-                    <div className={`size-item ${chosenSize == value && 'active'}`} onClick={(e) => handleSelectSize(value)} value={value} key={value}>{value.toUpperCase()}</div>
+                    <div className={`size-item ${chosenSize === value && 'active'}`} onClick={() => handleSelectSize(value)} value={value} key={value}>{value.toUpperCase()}</div>
                   )
                 })}
               </div>
             </DialogContent>
             <DialogActions>
-                <Button disabled={chosenSize === null ? true : false} onClick={closeSizeSelector} buttonType='inverted'>Confirm</Button>
+                <Button disabled={chosenSize === null} onClick={closeSizeSelector} buttonType={`inverted ${chosenSize === null && 'disabled'}`}>Confirm</Button>
             </DialogActions>
           </Dialog>
         </div>

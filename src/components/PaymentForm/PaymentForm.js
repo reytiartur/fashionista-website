@@ -56,7 +56,7 @@ const PaymentForm = ({ setOpen }) => {
         <div>Provide your Credit Card information</div>
         <form onSubmit={paymentHandler} className="payment-form">
             <CardElement style={{fontSize: '1.25rem'}} />
-            {!isProcessingPayment ? (<Button>PAY NOW</Button>) : (<Button disabled buttonType='inverted'>PROCESSING</Button>)}
+            {isProcessingPayment ? (<Button disabled buttonType='disabled'>PROCESSING</Button>) : (<Button>PAY NOW</Button>)}
         </form>
     </div>
   )

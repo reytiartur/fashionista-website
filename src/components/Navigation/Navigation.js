@@ -76,7 +76,7 @@ const Navigation = () => {
         <div className='icons-container'>
           { currentUser ? (
           <>
-            <Avatar onClick={handleOpenClick} className="auth-icon" style={{fontSize: '18px'}} sx={{ width: 30, height: 30 }}>{ userInitials }</Avatar>
+            <Avatar onClick={handleOpenClick} className="auth-icon" style={{fontSize: '16px', backgroundColor: 'rgb(var(--primary-gradient))', border: 'white 2px solid', borderRadius: '50%'}} sx={{ width: 30, height: 30 }}>{ userInitials }</Avatar>
             <Popper disablePortal={true} open={open} anchorEl={anchorEl} placement="bottom">
               <ClickAwayListener onClickAway={handleClickAway}>
                 <div className='account-popper'>
