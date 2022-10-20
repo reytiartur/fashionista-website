@@ -1,53 +1,47 @@
 import React, { Fragment } from 'react'
 import { Popper } from '@mui/material'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useContext } from 'react'
 import './CategoriesListMenu.scss'
 import { ProductsContext } from '../../context/ProductsContext';
+import { FilterContext } from '../../context/FilterContext';
 
 
 const categoriesList = {
-    "All": ["Show All", 'New', "Trousers", 'Jackets', 'Skirts', 'Dresses', 'Lingerie', "Shirts", "Suits", 'Pullovers', 'Shoes'], 
-    "Men": ["Show All", 'New', "Trousers", 'Jackets', "Shirts", "Suits", 'Pullovers', 'Shoes'], 
-    "Women": ["Show All", 'New', 'Skirts', 'Dresses', 'Lingerie', "Shirts", "Suits", 'Shoes'], 
+    "all": ["Show All", 'New', "Trousers", 'Jackets', 'Skirts', 'Dresses', 'Lingerie', "Shirts", "Suits", 'Pullovers', 'Shoes'], 
+    "men": ["Show All", 'New', "Trousers", 'Jackets', "Shirts", "Suits", 'Pullovers', 'Shoes'], 
+    "women": ["Show All", 'New', 'Skirts', 'Dresses', 'Lingerie', "Shirts", "Suits", 'Shoes'], 
   }
   
 
 const CategoriesListMenu = () => {
     const [anchorEl, setAnchorEl] = useState(null);
-    const { categories, prevFilteredProducts, setFilteredCategory  } = useContext(ProductsContext)
-    const [products, setProducts] = useState({})
-    const [open, setOpen] = useState(false)
-    const [chosenCategory, setChosenCategory] = useState(null)
+    const { products, setProducts, filteredProducts, setFilteredProducts, prevFilteredProducts } = useContext(ProductsContext)
+    const { chosenObjectCategory, setChosenObjectCategory } = useContext(FilterContext)
 
-    useEffect(() => {
-      setProducts(categories)
-    }, [categories]) 
+    const open = Boolean(anchorEl);
 
-    const handleOpen = (e, category) => {
-      setOpen(true)
-      setChosenCategory(category)
+    const handleOpen = (e, objectCategory) => {
+      setChosenObjectCategory(objectCategory)
       setAnchorEl(anchorEl ? null : e.currentTarget);
     };
 
     const handleClose = () => {
-      setOpen(false)
       setAnchorEl(null);
     };
 
-    const handleOptionClick = (e, category) => {
+    const handleOptionClick = (e, objectCategory) => {
       const value = e.target.innerText.toLowerCase();
-      const key = category.toLowerCase()
+      const key = objectCategory
       if(value === 'show all') {
-        setFilteredCategory(products[key])
+        setFilteredProducts(products[key])
         prevFilteredProducts.current = products[key]
       } else if(value === 'new') {
         const newProducts = products[key]?.filter(product => product.new)
-        setFilteredCategory(newProducts)
+        setFilteredProducts(newProducts)
         prevFilteredProducts.current = newProducts
-
       } else {
         const categoryArray = products[key]?.filter(item => item.category.includes(value.toLowerCase()))
-        setFilteredCategory(categoryArray)
+        setFilteredProducts(categoryArray)
         prevFilteredProducts.current = categoryArray
       }
       handleClose()
@@ -55,17 +49,17 @@ const CategoriesListMenu = () => {
 
   return (
     <div className="category-options">
-      {Object.keys(categoriesList).map(category => {
+      {Object.keys(categoriesList).map(objectCategory => {
         return (
-        <Fragment key={category}>
-          <button onMouseOver={(e) => handleOpen(e, category)} onMouseOut={handleClose}>{ category }</button>
-          <Popper open={open} anchorEl={anchorEl} placement="bottom">
+        <Fragment key={objectCategory}>
+          <button onMouseEnter={(e) => handleOpen(e, objectCategory)}>{ objectCategory }</button>
+          <Popper open={open} anchorEl={anchorEl} placement="bottom" onMouseLeave={handleClose}>
             <div className='categories-options'>
               <div className='options-list'>
-                <span className='options-title'>{ chosenCategory }</span> 
-                {categoriesList[chosenCategory]?.map(sub => {
+                <span className='options-title'>{ chosenObjectCategory }</span> 
+                {categoriesList[chosenObjectCategory]?.map(sub => {
                   return (
-                    <span className='option' key={`${category} ${sub}`} onClick={(e) => handleOptionClick(e, chosenCategory)}>{sub}</span>
+                    <span className='option' key={`${objectCategory} ${sub}`} onClick={(e) => handleOptionClick(e, chosenObjectCategory)}>{sub}</span>
                   ) 
                 })}
               </div>

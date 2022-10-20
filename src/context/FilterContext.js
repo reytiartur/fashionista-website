@@ -11,12 +11,15 @@ export const FilterContext = createContext({
     checkedValue: {},
     setCheckedValue: () => {},
     filterOptions: {},
+    chosenObjectCategory: ' ',
+    setChosenObjectCategory: () => ' ',    
 })
 
 export const FilterProvider = ({ children }) => {
     const [activeFilters, setActiveFilters] = useState([]);
     const [filterPrice, setFilterPrice] = useState({min: 0, max: 250})
     const [checkedValue, setCheckedValue] = useState({})
+    const [chosenObjectCategory, setChosenObjectCategory] = useState('all')
 
     const filterOptions = {
         'size': ['s', 'm', 'l'],
@@ -30,6 +33,6 @@ export const FilterProvider = ({ children }) => {
         'length': ['ankle length', 'cropped', 'regular', 'short', 'midi']
     }
 
-    const value = { activeFilters, setActiveFilters, filterPrice, setFilterPrice, checkedValue, setCheckedValue, filterOptions }
+    const value = { activeFilters, setActiveFilters, filterPrice, setFilterPrice, checkedValue, setCheckedValue, filterOptions, chosenObjectCategory, setChosenObjectCategory }
     return <FilterContext.Provider value={value}>{children}</FilterContext.Provider>
 }

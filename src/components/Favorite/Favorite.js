@@ -6,7 +6,7 @@ import { ProductsContext } from '../../context/ProductsContext'
 
 const Favorite = () => {
     const { products } = useContext(ProductsContext)
-    const favoriteProducts = products.filter(product => product.favorite);
+    const favoriteProducts = products.all.filter(product => product.favorite);
 
   return (
     <div className='favorite-container'>

@@ -1,4 +1,4 @@
-import React ,{ useContext, useEffect, useState, useRef } from 'react'
+import React ,{ useContext, useEffect, useState } from 'react'
 import './Shop.scss'
 import ShopItem from '../ShopItem/ShopItem'
 import Filter from '../Filter/Filter'
@@ -9,8 +9,8 @@ import { Pagination } from '@mui/material';
 
 
 const Shop = () => {
-  const { products, setProducts, filteredProducts, setFilteredProducts, prevFilteredProducts, filteredCategory } = useContext(ProductsContext)
-  const { activeFilters, setActiveFilters, filterPrice, checkedValue, setCheckedValue } = useContext(FilterContext);
+  const { products, filteredProducts, setFilteredProducts, prevFilteredProducts } = useContext(ProductsContext)
+  const { activeFilters, setActiveFilters, filterPrice, checkedValue, setCheckedValue, chosenObjectCategory, setChosenObjectCategory } = useContext(FilterContext);
   const { min, max } = filterPrice;
   
   const [currentPage, setCurrentPage] = useState(1)
@@ -18,6 +18,7 @@ const Shop = () => {
   
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     return setActiveFilters([])
   }, [])
 
@@ -25,17 +26,17 @@ const Shop = () => {
   useEffect(() => {
     const filterArray = () => {
       if(activeFilters.length) {
-        const filteredArray = filteredCategory.filter(item => item.tag.some(tag => activeFilters.includes(tag?.toLowerCase())))
+        const filteredArray = filteredProducts.filter(item => item.tag?.some(tag => activeFilters.includes(tag?.toLowerCase())))
         setFilteredProducts(filteredArray);
       } else {
         setFilteredProducts(prevFilteredProducts.current);
       }
     }
     filterArray()   
-  }, [activeFilters, filteredCategory])
+  }, [activeFilters])
 
   useEffect(() => {
-    const filteredArray = [...products]?.filter(item => { 
+    const filteredArray = [...filteredProducts]?.filter(item => { 
       if(activeFilters.length) {
         return item.tag.some(tag => activeFilters.includes(tag?.toLowerCase())) && Number(item.price) > min && Number(item.price) < max;
       } else {
@@ -54,6 +55,7 @@ const Shop = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredProducts?.slice(indexOfFirstItem, indexOfLastItem)
+  console.log(filteredProducts)
 
   const pagesCount = Math.ceil(filteredProducts?.length / itemsPerPage)
 
@@ -72,7 +74,7 @@ const Shop = () => {
       <div className="catalog">
         {currentItems.length ? currentItems.map(product => {
           return (
-            <ShopItem key={product.name} product={product} />
+            <ShopItem key={`${product.id} ${Math.random()}`} product={product} />
           )
         }) : (<p className='no-match'>No products matched your search...</p>)}
       </div>

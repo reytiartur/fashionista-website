@@ -3,23 +3,20 @@ import { getCategoriesAndDocuments, addCollectionAndDocuments } from "../utils/f
 // import PRODUCTS from "../products";
 
 export const ProductsContext = createContext({
-    products: [],
+    products: {},
     setProducts: () => {},
     filteredProducts: [],
     setFilteredProducts: () => {},
     categories: {},
     setCategories: () => {},
-    filteredCategory: [],
-    setFilteredCategory: () => {},
     prevFilteredProducts: [],
-})
+  })
 
 export const ProductsProvider = ({children}) => {
-    const [products, setProducts] = useState([])
+    const [products, setProducts] = useState({})
     const [filteredProducts, setFilteredProducts] = useState([])
     const [categories, setCategories] = useState({})
     const prevFilteredProducts = useRef(filteredProducts);
-    const [filteredCategory, setFilteredCategory] = useState([])
 
 
 
@@ -47,31 +44,19 @@ export const ProductsProvider = ({children}) => {
     //   setCategories()
     // }, [])
 
-  useEffect(() => {
-    const getCategoriesMap = async () => {
-      const categoryMap = await getCategoriesAndDocuments('categories')
-      setProducts([])
-      setFilteredProducts([])
-      for(let category in categoryMap) {
-        categoryMap[category].map(item => {
-          setProducts(prevProducts => [...prevProducts, item])
-          setFilteredProducts(prevProducts => [...prevProducts, item])
-        })
-      }
-    }
-    getCategoriesMap()
-  }, [])
 
   useEffect(() => {
     const getCategoriesMap = async () => {
       const categoryMap = await getCategoriesAndDocuments('categories')
       const all = await Object.values(categoryMap).reduce((acc, arr) => acc.concat(arr), [])
-      await setCategories({ all, ...categoryMap })
+      setProducts({ all, ...categoryMap }) 
+      setFilteredProducts(all)
     }
     getCategoriesMap()
   }, [])
 
-    const value = { products, setProducts, filteredProducts, setFilteredProducts, categories, setCategories, prevFilteredProducts, filteredCategory, setFilteredCategory }
+  
+  const value = { products, setProducts, filteredProducts, setFilteredProducts, categories, setCategories, prevFilteredProducts }
 
-    return <ProductsContext.Provider value={value}>{children}</ProductsContext.Provider>
+  return <ProductsContext.Provider value={value}>{children}</ProductsContext.Provider>
 }

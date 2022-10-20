@@ -6,16 +6,16 @@ import { ProductsContext } from '../../context/ProductsContext'
 
 const Categories = () => {
     
-const { categories } = useContext(ProductsContext)
+const { products } = useContext(ProductsContext)
 
 
   return (
     <div className='main-container'>
       <div className='text'>The most popular categories:</div>
       <div className='categories-container'>
-          {Object.entries(categories).map((category) => {
+          {Object.entries(products).map((category) => {
               return(
-                <CategoryContainer categories={categories} key={category[0]} categoryName={category[0]} categoryItems={category[1]} />
+                <CategoryContainer categories={products} key={category[0]} categoryName={category[0]} categoryItems={category[1]} />
               )
           })}
       </div>

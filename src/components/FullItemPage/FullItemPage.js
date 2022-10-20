@@ -18,6 +18,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import CloseIcon from '@mui/icons-material/Close';
+import { useEffect } from 'react';
+import { FilterContext } from '../../context/FilterContext';
 
 
 
@@ -26,12 +28,18 @@ const FullItemPage = () => {
   const { state } = useLocation()
   const { product } = state
   const { products, setProducts, filteredProducts, setFilteredProducts } = useContext(ProductsContext)
-  const exactProduct = products.filter(item => item.name === product.name)[0]
-  const { name, fit, category, size, price, imgUrl, slug, favorite, } = exactProduct;
+  const { chosenObjectCategory } = useContext(FilterContext)
+  const exactProductAll = products.all.filter(item => item.id === product.id)[0]
+  const { name, fit, category, size, price, imgUrl, slug, favorite, id } = exactProductAll;
   const [chosenSize, setChosenSize] = useState(null)
   const [expanded, setExpanded] = useState(false)
 
   const { addItemToCart, setIsCartOpen } = useContext(CartContext)
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    return setChosenSize(null)
+  }, [state])
 
   const addProductToCart = () => {
     if(chosenSize === null) {
@@ -39,15 +47,20 @@ const FullItemPage = () => {
     } else {
       addItemToCart(product, chosenSize)
       setIsCartOpen(true)
+      setChosenSize(null)
     }
   }
 
   const checkFavorites = (e) => {
-    const value = e.target.value
-    const checkedChanged = products.map(item => item.name === value ? {...item, favorite: !item.favorite} : item)
-    setProducts(checkedChanged)
-    const checkedChangedFiltered = filteredProducts.map(item => item.name === value ? {...item, favorite: !item.favorite} : item)
-    setFilteredProducts(checkedChangedFiltered)
+    const value = Number(e.target.value)
+    const allItem = Object.entries(products).map(cat => cat.map(items => typeof items === "string" ? items : items.map(item => item.id === value ? {...item, favorite: !item.favorite} : item)))
+    const allItemObj = Object.fromEntries(allItem)
+    setProducts(allItemObj)
+    if(chosenObjectCategory === 'all') {
+      setFilteredProducts(allItemObj.all)
+    } else {
+      setFilteredProducts(allItemObj[chosenObjectCategory])
+    }
   }
 
   const openSizeSelector = () => {
@@ -75,7 +88,7 @@ const FullItemPage = () => {
       <div className="product-info">
         <div className='name-container'>
           <p className='product-name'>{fit} {name}</p>
-          <Checkbox key={name} checked={favorite} onChange={checkFavorites} value={name} icon={<FavoriteBorder />} checkedIcon={<Favorite color='error' />} />
+          <Checkbox key={name} checked={favorite} onChange={checkFavorites} value={id} icon={<FavoriteBorder />} checkedIcon={<Favorite color='error' />} />
         </div>
         <span className="price">{price} €</span>
         <Accordion>
@@ -84,7 +97,7 @@ const FullItemPage = () => {
           </AccordionSummary>
           <AccordionDetails>
             <div className='accordion-container'>
-              {Object.entries(exactProduct).map(item => {
+              {Object.entries(exactProductAll).map(item => {
                 if(item[0] === 'fit' || item[0] === 'season' || item[0] === 'sex' || item[0] === 'material' || item[0] === 'neckline' || item[0] === 'sleeve length' || item[0] === 'waist rise' || item[0] === 'length') {
                   if(item[1] === null) {
                     return;
@@ -99,7 +112,7 @@ const FullItemPage = () => {
       </Accordion>
         <div className='sizes'>
           <div onClick={openSizeSelector} className='size-selector'>
-            <span>Select your size:</span>
+            <div className='text'>Select your size:</div>
             {chosenSize ? (<button>{chosenSize}</button>) : null}
             <ExpandMoreIcon />
           </div>
@@ -126,7 +139,7 @@ const FullItemPage = () => {
       <div className="recommended-container">
         <div className='recommended-text'>Recommended for you:</div>
         <div className='recommended-products'>
-          {[...filteredProducts].filter(product => product.name !== exactProduct.name).slice(0, 6).map(product => {
+          {[...filteredProducts].filter(product => product.id !== exactProductAll.id).slice(0, 6).map(product => {
             return(
               <ShopItem product={product} key={product.name} />
             )

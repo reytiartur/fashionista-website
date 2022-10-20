@@ -11,6 +11,7 @@
         background: none;
         width: 100px;
         height: 55px;
+        text-transform: capitalize;
 
         &:hover {
             font-weight: 600;
@@ -44,8 +45,7 @@
             font-size: 20px;
             text-decoration: underline;
             padding-bottom: 5px;
-
-
+            text-transform: capitalize;
         }
 
         .option {

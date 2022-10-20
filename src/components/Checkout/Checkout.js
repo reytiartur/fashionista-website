@@ -73,7 +73,7 @@ const Checkout = () => {
         <span className='total'>Total: {cartTotal}€</span>
         <div className='button-container'>
             <Button onClick={() => navigate('/shop')}>Continue Shopping</Button>
-            <Button buttonType='inverted' onClick={handleOpen}>Purchase Now</Button>
+            <Button buttonType={`inverted ${!cartItems.length && 'disabled'}`} disabled={!cartItems.length} onClick={handleOpen}>Purchase Now</Button>
         </div>
         
         <Modal open={open} onClose={handleClose}>
