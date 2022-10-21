@@ -30,7 +30,8 @@ const NewCollection = () => {
             setFilteredProducts([...newCollection])
         }, 100)
         setTimeout(() => {
-            prevFilteredProducts.current = filteredProducts;
+            prevFilteredProducts.current = [...newCollection];
+            prevFilteredProducts.beforeFilter = [...newCollection];
         }, 250)
         navigate('/shop', )
         

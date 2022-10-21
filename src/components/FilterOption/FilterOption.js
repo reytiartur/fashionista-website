@@ -7,15 +7,18 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FilterContext } from '../../context/FilterContext';
 import { StylesProvider } from "@material-ui/core/styles";
 import Checkbox from '../Checkbox/Checkbox';
+import { ProductsContext } from '../../context/ProductsContext';
 
 
 const FilterOption = ({ filterName, filterValue }) => {
 
   const { checkedValue, setCheckedValue, activeFilters, setActiveFilters, filterOptions } = useContext(FilterContext)
+  const { filteredProducts, prevFilteredProducts } = useContext(ProductsContext)
   
   useEffect(() => {
     const filterValuesArray = Object.values(filterOptions).flat()
     filterValuesArray.map(filter => setCheckedValue(currentState => ({...currentState, [filter]: { ...currentState[filter], checked: false }})))
+    prevFilteredProducts.beforeFilter = filteredProducts
   }, [])
 
   const handleCheckbox = (event) => {

@@ -27,12 +27,13 @@ const FullItemPage = () => {
   
   const { state } = useLocation()
   const { product } = state
-  const { products, setProducts, filteredProducts, setFilteredProducts } = useContext(ProductsContext)
+  const { products, setProducts, filteredProducts, setFilteredProducts, prevFilteredProducts } = useContext(ProductsContext)
   const { chosenObjectCategory } = useContext(FilterContext)
   const exactProductAll = products.all.filter(item => item.id === product.id)[0]
   const { name, fit, category, size, price, imgUrl, slug, favorite, id } = exactProductAll;
   const [chosenSize, setChosenSize] = useState(null)
   const [expanded, setExpanded] = useState(false)
+  const [recommendedArray, setRecommendedArray] = useState([])
 
   const { addItemToCart, setIsCartOpen } = useContext(CartContext)
 
@@ -40,6 +41,13 @@ const FullItemPage = () => {
     window.scrollTo(0, 0)
     return setChosenSize(null)
   }, [state])
+
+  useEffect(() => {
+    const filteredIDs = filteredProducts.map(filtered => filtered.id)
+    prevFilteredProducts.current = Object.values(products?.all)?.filter(item => filteredIDs.includes(item.id))
+    setFilteredProducts(prevFilteredProducts.current)
+    setRecommendedArray(prevFilteredProducts.current)
+  }, [products])
 
   const addProductToCart = () => {
     if(chosenSize === null) {
@@ -52,15 +60,11 @@ const FullItemPage = () => {
   }
 
   const checkFavorites = (e) => {
+    console.log(filteredProducts)
     const value = Number(e.target.value)
     const allItem = Object.entries(products).map(cat => cat.map(items => typeof items === "string" ? items : items.map(item => item.id === value ? {...item, favorite: !item.favorite} : item)))
     const allItemObj = Object.fromEntries(allItem)
     setProducts(allItemObj)
-    if(chosenObjectCategory === 'all') {
-      setFilteredProducts(allItemObj.all)
-    } else {
-      setFilteredProducts(allItemObj[chosenObjectCategory])
-    }
   }
 
   const openSizeSelector = () => {
@@ -79,6 +83,7 @@ const FullItemPage = () => {
   const handleSelectSize = (value) => {
     setChosenSize(value)
   }
+
 
   return (
     <div className='product-page-container'>
@@ -139,7 +144,7 @@ const FullItemPage = () => {
       <div className="recommended-container">
         <div className='recommended-text'>Recommended for you:</div>
         <div className='recommended-products'>
-          {[...filteredProducts].filter(product => product.id !== exactProductAll.id).slice(0, 6).map(product => {
+          {recommendedArray.filter(product => product.id !== exactProductAll.id).slice(0, 6).map(product => {
             return(
               <ShopItem product={product} key={product.name} />
             )

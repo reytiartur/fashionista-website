@@ -7,6 +7,7 @@ import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
 import { ProductsContext } from '../../context/ProductsContext';
 import { FilterContext } from '../../context/FilterContext';
+import { useEffect } from 'react';
 
 
 const ShopItem = ({ product }) => {
@@ -29,11 +30,6 @@ const ShopItem = ({ product }) => {
       const allItem = Object.entries(products).map(cat => cat.map(items => typeof items === "string" ? items : items.map(item => item.id === value ? {...item, favorite: !item.favorite} : item)))
       const allItemObj = Object.fromEntries(allItem)
       setProducts(allItemObj)
-      if(chosenObjectCategory === 'all') {
-        setFilteredProducts(allItemObj.all)
-      } else {
-        setFilteredProducts(allItemObj[chosenObjectCategory])
-      }
     }
 
 

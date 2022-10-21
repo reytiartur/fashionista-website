@@ -22,21 +22,25 @@ const Shop = () => {
     return setActiveFilters([])
   }, [])
 
+  useEffect(() => {
+    const filteredIDs = filteredProducts.map(filtered => filtered.id)
+    prevFilteredProducts.current = Object.values(products?.all)?.filter(item => filteredIDs.includes(item.id))
+    setFilteredProducts(prevFilteredProducts.current)
+  }, [products])
+
 
   useEffect(() => {
-    const filterArray = () => {
       if(activeFilters.length) {
-        const filteredArray = filteredProducts.filter(item => item.tag?.some(tag => activeFilters.includes(tag?.toLowerCase())))
+        const filteredArray = prevFilteredProducts.beforeFilter.filter(item => item.tag?.some(tag => activeFilters.includes(tag?.toLowerCase())))
         setFilteredProducts(filteredArray);
       } else {
-        setFilteredProducts(prevFilteredProducts.current);
+        const filteredArray = prevFilteredProducts.beforeFilter.filter(item => Number(item.price) > min && Number(item.price) < max)
+        setFilteredProducts(filteredArray);
       }
-    }
-    filterArray()   
-  }, [activeFilters])
+    }, [activeFilters])
 
   useEffect(() => {
-    const filteredArray = [...filteredProducts]?.filter(item => { 
+    const filteredArray = prevFilteredProducts.beforeFilter.filter(item => { 
       if(activeFilters.length) {
         return item.tag.some(tag => activeFilters.includes(tag?.toLowerCase())) && Number(item.price) > min && Number(item.price) < max;
       } else {
@@ -55,7 +59,6 @@ const Shop = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredProducts?.slice(indexOfFirstItem, indexOfLastItem)
-  console.log(filteredProducts)
 
   const pagesCount = Math.ceil(filteredProducts?.length / itemsPerPage)
 

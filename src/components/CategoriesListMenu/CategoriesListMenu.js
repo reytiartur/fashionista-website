@@ -16,7 +16,7 @@ const categoriesList = {
 const CategoriesListMenu = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const { products, setProducts, filteredProducts, setFilteredProducts, prevFilteredProducts } = useContext(ProductsContext)
-    const { chosenObjectCategory, setChosenObjectCategory } = useContext(FilterContext)
+    const { chosenObjectCategory, setChosenObjectCategory, setActiveFilters } = useContext(FilterContext)
 
     const open = Boolean(anchorEl);
 
@@ -34,15 +34,18 @@ const CategoriesListMenu = () => {
       const key = objectCategory
       if(value === 'show all') {
         setFilteredProducts(products[key])
+        prevFilteredProducts.beforeFilter = products[key]
         prevFilteredProducts.current = products[key]
       } else if(value === 'new') {
         const newProducts = products[key]?.filter(product => product.new)
         setFilteredProducts(newProducts)
         prevFilteredProducts.current = newProducts
+        prevFilteredProducts.beforeFilter = newProducts
       } else {
         const categoryArray = products[key]?.filter(item => item.category.includes(value.toLowerCase()))
         setFilteredProducts(categoryArray)
         prevFilteredProducts.current = categoryArray
+        prevFilteredProducts.beforeFilter = categoryArray
       }
       handleClose()
     }
