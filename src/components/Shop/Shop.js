@@ -34,7 +34,7 @@ const Shop = () => {
         const filteredArray = prevFilteredProducts.beforeFilter.filter(item => item.tag?.some(tag => activeFilters.includes(tag?.toLowerCase())))
         setFilteredProducts(filteredArray);
       } else {
-        const filteredArray = prevFilteredProducts.beforeFilter.filter(item => Number(item.price) > min && Number(item.price) < max)
+        const filteredArray = prevFilteredProducts.beforeFilter.filter(item => Number(item.price) >= min && Number(item.price) <= max)
         setFilteredProducts(filteredArray);
       }
     }, [activeFilters])
@@ -42,9 +42,9 @@ const Shop = () => {
   useEffect(() => {
     const filteredArray = prevFilteredProducts.beforeFilter.filter(item => { 
       if(activeFilters.length) {
-        return item.tag.some(tag => activeFilters.includes(tag?.toLowerCase())) && Number(item.price) > min && Number(item.price) < max;
+        return item.tag.some(tag => activeFilters.includes(tag?.toLowerCase())) && Number(item.price) >= min && Number(item.price) <= max;
       } else {
-        return Number(item.price) > min && Number(item.price) < max
+        return Number(item.price) >= min && Number(item.price) <= max
       }
     })
     setFilteredProducts(filteredArray);

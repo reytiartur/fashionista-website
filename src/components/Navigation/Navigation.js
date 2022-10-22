@@ -24,6 +24,7 @@ const Navigation = () => {
   const { isCartOpen, setIsCartOpen, cartCount } = useContext(CartContext)
   const [userInitials, setUserInitials] = useState(null)
   const [anchorEl, setAnchorEl] = useState(null);
+  const { isHome  } = useContext(UserContext)
 
   const navigate = useNavigate()
 
@@ -71,7 +72,7 @@ const Navigation = () => {
   return (
     <>
       <div className='navigation'>
-        { window.history.state ? <BackButton /> : <div className='back-button'></div>}
+        { isHome ? <div className='back-button'></div> : <BackButton /> }
         <Link to="/"><div className='logo'>FASHIONISTA</div></Link>
         <div className='icons-container'>
           { currentUser ? (

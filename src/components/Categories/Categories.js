@@ -15,7 +15,7 @@ const { products } = useContext(ProductsContext)
       <div className='categories-container'>
           {Object.entries(products).map((category) => {
               return(
-                <CategoryContainer categories={products} key={category[0]} categoryName={category[0]} categoryItems={category[1]} />
+                <CategoryContainer key={category[0]} categoryName={category[0]} categoryItems={category[1]} />
               )
           })}
       </div>

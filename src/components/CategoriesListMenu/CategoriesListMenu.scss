@@ -5,21 +5,28 @@
     margin-top: 1rem;
 
     button {
-        border: none;
+        border: 1px solid rgb(var(--primary-dark-color));
+        border-radius: 16px;
         font-size: 20px;
         font-weight: 500;
         background: none;
         width: 100px;
-        height: 55px;
+        height: 35px;
         text-transform: capitalize;
+        box-shadow: inset 0px 0px 5px 1px rgb(var(--primary-light-color));
+
 
         &:hover {
             font-weight: 600;
             text-decoration: underline;
         }
     }
-
-    
+    .selected {
+        color: white;
+        background: var(--primary-gradient);
+        text-decoration: underline;
+        font-weight: 600;
+    }
 }
 
 .categories-options {
@@ -41,19 +48,13 @@
         flex: 1;
         padding: 10px;
 
-        .options-title {
-            font-size: 20px;
-            text-decoration: underline;
-            padding-bottom: 5px;
-            text-transform: capitalize;
-        }
-
         .option {
             padding: 5px 0;
 
             &:hover {
                 cursor: pointer;
                 font-weight: 600;
+                color: rgb(var(--primary-dark-color));
             }
         }
     }
