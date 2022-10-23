@@ -1,5 +1,8 @@
+@import '../../utils/mixins/breakpoints.scss';
+
+
 .new {
-    width: 80%;
+    width: 50%;
     height: 800px;
     margin-inline: auto;
     margin-top: 2rem;
@@ -41,6 +44,28 @@
                font-size: 38px;
                font-weight: 600;
                letter-spacing: 2px; 
+            }
+        }
+    }
+
+    @include device(small-laptop) {
+        width: 100%;
+        height: 400px;
+        margin-top: 1rem;
+
+
+        .new-img {
+
+            .new-text {
+                opacity: 1;
+
+                .text-new {
+                    font-size: 28px;    
+                }
+             
+                .text-shop {
+                   font-size: 20px;
+                }
             }
         }
     }

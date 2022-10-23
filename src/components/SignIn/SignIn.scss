@@ -1,3 +1,5 @@
+@import '../../utils/mixins/breakpoints.scss';
+
 .sign-in-container {
     width: 35vw;
     height: 50vh;
@@ -26,5 +28,35 @@
         }
     }
 
-    
+    @include device(small-laptop) {
+        width: 40vw;
+
+        p {
+            font-size: 26px;
+        }
+
+        form {
+            .buttons {
+                gap: 1rem;
+            }
+        }
+    }
+
+    @include device(tablet) {
+        height: fit-content;
+        width: 65vw;
+        margin-bottom: 1rem;
+
+        form {
+            .buttons {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 0.5rem;
+                margin-top: 0rem;
+                margin-bottom: 0rem;
+            }
+        }
+        
+    }
 }

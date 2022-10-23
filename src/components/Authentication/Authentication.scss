@@ -1,5 +1,14 @@
+@import '../../utils/mixins/breakpoints.scss';
+
+
 .auth {
     display: flex;
     justify-content: space-around;
     margin-top: 5vh;
+
+    @include device(tablet) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }    
 }

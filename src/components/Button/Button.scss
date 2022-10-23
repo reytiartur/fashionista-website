@@ -1,3 +1,5 @@
+@import '../../utils/mixins/breakpoints.scss';
+
 .button {
     display: flex;
     align-items: center;
@@ -22,6 +24,28 @@
         background: white;
         color: black;
     }  
+
+    @include device(small-laptop) {
+        min-width: 120px;
+        height: 45px;
+        padding: 0 15px;
+    
+        }
+
+    @include device(tablet) {
+        min-width: 160px;
+        padding: 0 7px;
+        font-size: 18px;
+        height: 50px;
+    }
+
+    @include device(tablet) {
+        min-width: none;
+        width: 100%;
+        padding: 0 10px;
+        font-size: 18px;
+        height: 50px;
+    }
 }
 
 .inverted {
@@ -35,6 +59,7 @@
 }
 
 .google {
+    min-width: 232px;
     background: #4285F4;
     color: white;
 
