@@ -16,8 +16,7 @@ const FilterOption = ({ filterName, filterValue }) => {
   const { filteredProducts, prevFilteredProducts } = useContext(ProductsContext)
   
   useEffect(() => {
-    const filterValuesArray = Object.values(filterOptions).flat()
-    filterValuesArray.map(filter => setCheckedValue(currentState => ({...currentState, [filter]: { ...currentState[filter], checked: false }})))
+    
     prevFilteredProducts.beforeFilter = filteredProducts
   }, [])
 

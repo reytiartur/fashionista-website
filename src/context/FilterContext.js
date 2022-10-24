@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createContext, useState } from "react";
 
 
@@ -32,6 +32,11 @@ export const FilterProvider = ({ children }) => {
         'waist rise': ['high waist', 'low waist', 'regular waist'],
         'length': ['ankle length', 'cropped', 'regular', 'short', 'midi']
     }
+
+    useEffect(() => {
+        const filterValuesArray = Object.values(filterOptions).flat()
+        filterValuesArray.map(filter => setCheckedValue(currentState => ({...currentState, [filter]: { ...currentState[filter], checked: false }})))
+    }, [])
 
     const value = { activeFilters, setActiveFilters, filterPrice, setFilterPrice, checkedValue, setCheckedValue, filterOptions, chosenObjectCategory, setChosenObjectCategory }
     return <FilterContext.Provider value={value}>{children}</FilterContext.Provider>

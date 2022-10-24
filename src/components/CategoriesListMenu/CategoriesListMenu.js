@@ -4,6 +4,7 @@ import { useState, useContext } from 'react'
 import './CategoriesListMenu.scss'
 import { ProductsContext } from '../../context/ProductsContext';
 import { FilterContext } from '../../context/FilterContext';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 
 const categoriesList = {
@@ -56,19 +57,21 @@ const CategoriesListMenu = () => {
     <div className="category-options">
       {Object.keys(categoriesList).map(objectCategory => {
         return (
-          <button key={objectCategory} onMouseEnter={(e) => handleOpen(e, objectCategory)} className={`${objectCategory === chosenObjectCategory && 'selected'}`}>{ objectCategory }</button> 
+          <button key={objectCategory} onClick={(e) => handleOpen(e, objectCategory)} className={`${objectCategory === chosenObjectCategory && 'selected'}`}>{ objectCategory }</button> 
       )})}
-      <Popper disablePortal='true' open={open} anchorEl={anchorEl} placement="bottom" onMouseLeave={handleClose} sx={{ zIndex: 'modal' }} >
-            <div className='categories-options'>
-              <div className='options-list'>
-                {categoriesList[category]?.map(sub => {
-                  return (
-                    <span className='option' key={`${category} ${sub}`} onClick={(e) => handleOptionClick(e, category)}>{sub}</span>
-                  ) 
-                })}
-              </div>
+      <Popper disablePortal={true} open={open} anchorEl={anchorEl} placement="bottom" onClick={handleClose} sx={{ zIndex: 'modal' }} >
+        <ClickAwayListener onClickAway={handleClose}>
+          <div className='categories-options'>
+            <div className='options-list'>
+              {categoriesList[category]?.map(sub => {
+                return (
+                  <span className='option' key={`${category} ${sub}`} onClick={(e) => handleOptionClick(e, category)}>{sub}</span>
+                ) 
+              })}
             </div>
-          </Popper>
+          </div>
+        </ClickAwayListener>
+      </Popper>
     </div>  
   )
 }

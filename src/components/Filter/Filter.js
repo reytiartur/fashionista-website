@@ -5,6 +5,7 @@ import { Slider } from '@mui/material';
 import FilterOption from '../FilterOption/FilterOption';
 import { FilterContext } from '../../context/FilterContext';
 import { StylesProvider } from "@material-ui/core/styles";
+import { ProductsContext } from '../../context/ProductsContext';
 
 
     
@@ -12,14 +13,18 @@ import { StylesProvider } from "@material-ui/core/styles";
 const Filter = () => {
     const [filterMinPrice, setFilterMinPrice] = useState(0)
     const [filterMaxPrice, setFilterMaxPrice] = useState(250)
-    const { filterPrice, setFilterPrice } = useContext(FilterContext)
+    const { filterPrice, setFilterPrice, filterOptions } = useContext(FilterContext)
     const { min, max } = filterPrice
 
-    const { filterOptions } = useContext(FilterContext)
+    const { prevFilteredProducts, filteredProducts } = useContext(ProductsContext)
 
-
+    useEffect(() => {
+        setFilterMinPrice(min)
+        setFilterMaxPrice(max)
+    }, [])
 
     const handleSliderChange = (event, newValue) => {
+        prevFilteredProducts.beforeFilter = filteredProducts;
         setFilterMinPrice(+newValue[0]) 
         setFilterMaxPrice(+newValue[1])
     };

@@ -1,4 +1,4 @@
-import React ,{ useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, Fragment } from 'react'
 import './Shop.scss'
 import ShopItem from '../ShopItem/ShopItem'
 import Filter from '../Filter/Filter'
@@ -6,15 +6,21 @@ import { FilterContext } from '../../context/FilterContext'
 import { ProductsContext } from '../../context/ProductsContext'
 import CategoriesListMenu from '../CategoriesListMenu/CategoriesListMenu'
 import { Pagination } from '@mui/material';
+import { UserContext } from '../../context/UserContext'
+import FilterListIcon from '@mui/icons-material/FilterList';
+import Drawer from '@mui/material/Drawer';
+import { Badge } from '@mui/material';
 
 
 const Shop = () => {
   const { products, filteredProducts, setFilteredProducts, prevFilteredProducts } = useContext(ProductsContext)
-  const { activeFilters, setActiveFilters, filterPrice, checkedValue, setCheckedValue, chosenObjectCategory, setChosenObjectCategory } = useContext(FilterContext);
+  const { activeFilters, setActiveFilters, filterPrice, checkedValue, setCheckedValue  } = useContext(FilterContext);
   const { min, max } = filterPrice;
+  const { isMobile } = useContext(UserContext)
   
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage] = useState(12)
+  const [filterOpen, setFilterOpen] = useState(false)
   
 
   useEffect(() => {
@@ -31,16 +37,16 @@ const Shop = () => {
 
   useEffect(() => {
       if(activeFilters.length) {
-        const filteredArray = prevFilteredProducts.beforeFilter.filter(item => item.tag?.some(tag => activeFilters.includes(tag?.toLowerCase())))
+        const filteredArray = prevFilteredProducts?.beforeFilter?.filter(item => item.tag?.some(tag => activeFilters.includes(tag?.toLowerCase())))
         setFilteredProducts(filteredArray);
       } else {
-        const filteredArray = prevFilteredProducts.beforeFilter.filter(item => Number(item.price) >= min && Number(item.price) <= max)
+        const filteredArray = prevFilteredProducts?.beforeFilter?.filter(item => Number(item.price) >= min && Number(item.price) <= max)
         setFilteredProducts(filteredArray);
       }
     }, [activeFilters])
 
   useEffect(() => {
-    const filteredArray = prevFilteredProducts.beforeFilter.filter(item => { 
+    const filteredArray = prevFilteredProducts?.beforeFilter?.filter(item => { 
       if(activeFilters.length) {
         return item.tag.some(tag => activeFilters.includes(tag?.toLowerCase())) && Number(item.price) >= min && Number(item.price) <= max;
       } else {
@@ -54,6 +60,10 @@ const Shop = () => {
     const deleteFilter = activeFilters.filter(item => item !== filter)
     setCheckedValue({...checkedValue, [filter]: { ...checkedValue[filter], checked: !checkedValue[filter].checked }})
     setActiveFilters(deleteFilter)
+  }
+
+  const toggleFilter = (bool) => {
+    setFilterOpen(bool)
   }
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -72,10 +82,20 @@ const Shop = () => {
           </div>
           )
       })}</div>
-      <CategoriesListMenu />
-      <Filter key='filter' />
+      {!isMobile ? (<CategoriesListMenu />) : null}
+      {!isMobile ? (<Filter key='filter' />) : null}
+      {isMobile ? (
+        <Fragment>
+          <Badge color={'warning'} showZero badgeContent={activeFilters.length}>
+            <FilterListIcon fontSize='large' className='filter-mobile' onClick={() => toggleFilter(true)} />
+          </Badge>
+          <Drawer anchor="left" open={filterOpen} onClose={() => toggleFilter(false)}>
+            <Filter key='filter' />
+          </Drawer>
+        </Fragment>
+        ) : null}
       <div className="catalog">
-        {currentItems.length ? currentItems.map(product => {
+        {currentItems?.length ? currentItems.map(product => {
           return (
             <ShopItem key={`${product.id} ${Math.random()}`} product={product} />
           )
