@@ -31,8 +31,10 @@ const Shop = () => {
 
   useEffect(() => {
     const filteredIDs = filteredProducts.map(filtered => filtered.id)
-    prevFilteredProducts.current = Object.values(products?.all)?.filter(item => filteredIDs.includes(item.id))
-    setFilteredProducts(prevFilteredProducts.current)
+    setTimeout(() => {
+      prevFilteredProducts.current = Object.values(products?.all)?.filter(item => filteredIDs.includes(item.id))
+      setFilteredProducts(prevFilteredProducts.current)
+    }, 100)
   }, [products])
 
 
