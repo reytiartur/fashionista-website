@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import Navigation from './components/Navigation/Navigation';
 import Home from './components/Home/Home'
 import Authentication from './components/Authentication/Authentication';

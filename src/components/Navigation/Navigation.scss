@@ -1,3 +1,5 @@
+@import '../../utils/mixins/breakpoints.scss';
+
 .navigation {
     display: flex;
     justify-content: center;
@@ -5,7 +7,6 @@
     z-index: 9000;
     height: 10vh;
     width: 100vw;
-    font-size: 32px;
     padding: 0 3rem;
     background: var(--primary-gradient);
     color: white;
@@ -56,6 +57,27 @@
         
         &:hover {
             cursor: pointer;
+        }
+    }
+
+    @include device(tablet) {
+        justify-content: center;
+    
+        a {
+
+            .logo {
+                font-size: 36px;
+                letter-spacing: 2px;
+            }   
+        }
+    }
+
+    @include device(phone) {
+        
+        a {
+            .logo {
+                font-size: 26px;
+            }
         }
     }
 }

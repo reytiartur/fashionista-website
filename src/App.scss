@@ -1,3 +1,5 @@
+@import './utils/mixins/breakpoints.scss';
+
 * {
   box-sizing: border-box;
 }
@@ -13,7 +15,7 @@ body, #root, .App {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  height: 100vh;
+  height: max-content;
   background: rgb(var(--background-color));
 }
 
@@ -25,6 +27,10 @@ a {
 .App {
   padding: 3rem 1rem;
   padding-top: 100px;
+
+  @include device(small-laptop) {
+    padding: 100px 0rem 40px 0rem;
+  }
 }
 
 ::-webkit-scrollbar {
@@ -51,3 +57,4 @@ a {
   background: rgb(var(--background-color));
 
 }
+
