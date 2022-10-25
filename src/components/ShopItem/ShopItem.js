@@ -7,15 +7,15 @@ import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
 import { ProductsContext } from '../../context/ProductsContext';
 import { FilterContext } from '../../context/FilterContext';
-import { useEffect } from 'react';
+import { UserContext } from '../../context/UserContext';
 
 
 const ShopItem = ({ product }) => {
     const { name, fit, price, imgUrl, slug, favorite, id } = product;
     const fullProductName = `${fit} ${name}`;
     const { products, setProducts, filteredProducts, setFilteredProducts, prevFilteredProducts } = useContext(ProductsContext)
-    const { chosenObjectCategory } = useContext(FilterContext)
-
+    const { isMobile } = useContext(UserContext)
+    
     const navigate = useNavigate()
 
     const moveToItem = (e) => {
@@ -41,7 +41,7 @@ const ShopItem = ({ product }) => {
           <Checkbox key={product.name} checked={favorite} onChange={checkFavorites} value={id} className='fav-btn' icon={<FavoriteBorder />} checkedIcon={<Favorite sx={{opacity: '1', top: "10px", right: '10px'}} color='error' />} />
         </div>
         <div className="shop-item-info">
-            <p className="shop-item-name">{ fullProductName.length > 20 ? `${fullProductName.substring(0, 20)}...` : fullProductName }</p>
+            <p className="shop-item-name">{ isMobile && fullProductName.length > 16 ? `${fullProductName.substring(0, 17)}...` : fullProductName.length > 20 ? `${fullProductName.substring(0, 20)}...` : fullProductName }</p>
             <p className="shop-item-price">{ `${price} €` }</p>
         </div>    
         <p className="details click-to-move" onClick={moveToItem}>Show details </p>

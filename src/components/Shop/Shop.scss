@@ -72,8 +72,8 @@
     }
 
     @include device(small-laptop) {
-        grid-template-columns: 70px 1fr;
-        grid-template-rows: 4rem 1fr 3rem;
+        grid-template-columns: 1fr 7fr;
+        grid-template-rows: 3rem 3rem 1fr 3rem;
 
         .filter-mobile {
             align-self: start;
@@ -89,10 +89,15 @@
             grid-column: 2/-1;
             grid-row: 1/2;
             margin-left: 14px;
-            padding-bottom: 0px;
             margin-top: 0rem;
             max-height: 33px;
-            min-width: 70px;
+            padding-bottom: 0px;
+
+            .filter-button {
+                padding: 3px 10px;
+                height: 30px;
+                min-width: max-content;
+            }
         }
 
         .filters-name::-webkit-scrollbar {
@@ -105,13 +110,14 @@
             grid-auto-rows: 330px;
             gap: 2rem;
             padding-inline: 1.5rem;
-            grid-row: 2 / 3;
+            grid-row: 3 / 4;
             grid-column: 1 / -1;
         }
 
         .css-1c32n2y-MuiBadge-root {
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
+            align-items: center;
             margin-top: 1rem;
             margin-left: 1.5rem;
             margin-right: auto;
@@ -126,12 +132,18 @@
         .catalog {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            grid-auto-rows: 240px;
+            grid-auto-rows: 300px;
             gap: 1rem;
             overflow-y: auto;
             justify-content: center;
-            padding: 0;
+            padding-inline: .5rem;
             padding-bottom: 1rem;
+        }
+    }
+
+    @include device(phone) {
+        .catalog {
+            grid-auto-rows: 250px;
         }
     }
 }
@@ -145,7 +157,7 @@
 
     @include device(small-laptop) {
         grid-column: 1 / -1;
-        grid-row: 3 / -1;
+        grid-row: 4 / -1;
     }
 }
 
@@ -161,6 +173,10 @@
         .price-filter {
             margin-right: .5rem;
         }
+    }
+
+    .filter::-webkit-scrollbar {
+        display: none;
     }
 
     @include device(tablet) {

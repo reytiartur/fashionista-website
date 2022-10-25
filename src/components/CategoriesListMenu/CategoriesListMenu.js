@@ -5,13 +5,9 @@ import './CategoriesListMenu.scss'
 import { ProductsContext } from '../../context/ProductsContext';
 import { FilterContext } from '../../context/FilterContext';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
+import categoriesList from '../../categories.json'
 
 
-const categoriesList = {
-    "all": ["Show All", 'New', "Trousers", 'Jackets', 'Skirts', 'Dresses', 'Lingerie', "Shirts", "Suits", 'Pullovers', 'Shoes'], 
-    "men": ["Show All", 'New', "Trousers", 'Jackets', "Shirts", "Suits", 'Pullovers', 'Shoes'], 
-    "women": ["Show All", 'New', 'Skirts', 'Dresses', 'Lingerie', "Shirts", "Suits", 'Shoes'], 
-  }
   
 
 const CategoriesListMenu = () => {

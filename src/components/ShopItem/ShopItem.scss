@@ -1,3 +1,5 @@
+@import '../../utils/mixins/breakpoints.scss';
+
 .shop-item {
     max-height: 420px;
     max-width: 350px;
@@ -77,7 +79,7 @@
 
     .shop-item-name {
         flex-grow: 1;
-        flex-shrink: 1;
+        flex-shrink: 0;
     }
 
     .shop-item-price {
@@ -100,6 +102,29 @@
             text-decoration: none;
         }
     }
+
+    @include device(phone) {
+        
+        .shop-item-img {
+            height: 70%;
+        }
+
+        .shop-item-info {
+            flex-direction: column;
+            padding-bottom: 0;
+        }
+
+        .shop-item-name {
+            margin: 0;
+        }
+    
+        .shop-item-price {
+            text-align: start;
+            margin: 0;
+            padding-top: 5px;
+        }
+    }
+
 }
 
 .css-1m9pwf3:checked ~ .fav-btn {

@@ -10,6 +10,7 @@ import { UserContext } from '../../context/UserContext'
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Drawer from '@mui/material/Drawer';
 import { Badge } from '@mui/material';
+import MobileCategoriesListMenu from '../MobileCategoriesListMenu/MobileCategoriesListMenu'
 
 
 const Shop = () => {
@@ -82,7 +83,7 @@ const Shop = () => {
           </div>
           )
       })}</div>
-      {!isMobile ? (<CategoriesListMenu />) : null}
+      {!isMobile ? (<CategoriesListMenu />) : (<MobileCategoriesListMenu />)}
       {!isMobile ? (<Filter key='filter' />) : null}
       {isMobile ? (
         <Fragment>
@@ -101,7 +102,7 @@ const Shop = () => {
           )
         }) : (<p className='no-match'>No products matched your search...</p>)}
       </div>
-      <Pagination onChange={(e, value) => setCurrentPage(value)} count={pagesCount} page={currentPage} siblingCount={2} boundaryCount={2} color='primary' />
+      <Pagination onChange={(e, value) => setCurrentPage(value)} count={pagesCount} page={currentPage} siblingCount={2} boundaryCount={2} color='warning' />
     </div>
   )
 }
