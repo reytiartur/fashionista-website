@@ -46,7 +46,7 @@
     @include device(phone) {
         .categories-container {
             gap: 1rem;
-            padding: 2rem 0rem;
+            padding: 2rem 1rem;
         }
     }
 }

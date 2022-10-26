@@ -104,7 +104,7 @@ const Shop = () => {
           )
         }) : (<p className='no-match'>No products matched your search...</p>)}
       </div>
-      <Pagination onChange={(e, value) => setCurrentPage(value)} count={pagesCount} page={currentPage} siblingCount={2} boundaryCount={2} color='warning' />
+      <Pagination onChange={(e, value) => setCurrentPage(value)} count={pagesCount} page={currentPage} siblingCount={2} boundaryCount={2} sx={{paddingBottom: '1rem', '& .MuiPaginationItem-root.Mui-selected': {backgroundColor: '#ffba7e', color: '#fff'}}} />
     </div>
   )
 }

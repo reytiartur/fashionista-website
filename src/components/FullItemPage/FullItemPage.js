@@ -96,7 +96,7 @@ const FullItemPage = () => {
           <Checkbox key={name} checked={favorite} onChange={checkFavorites} value={id} icon={<FavoriteBorder />} checkedIcon={<Favorite color='error' />} />
         </div>
         <span className="price">{price} €</span>
-        <Accordion>
+        <Accordion sx={{ width: '50%', '&.MuiAccordionDetails-root': {backgroundColor: '#f5f5f5'}, '&.MuiPaper-root.MuiAccordion-root': {backgroundColor: '#f5f5f5'}}}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
             <p className='details'>See details...</p>
           </AccordionSummary>

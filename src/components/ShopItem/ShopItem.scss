@@ -80,6 +80,7 @@
     .shop-item-name {
         flex-grow: 1;
         flex-shrink: 0;
+        margin: 0;
     }
 
     .shop-item-price {
@@ -112,10 +113,6 @@
         .shop-item-info {
             flex-direction: column;
             padding-bottom: 0;
-        }
-
-        .shop-item-name {
-            margin: 0;
         }
     
         .shop-item-price {

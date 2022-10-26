@@ -55,7 +55,7 @@ const CategoriesListMenu = () => {
         return (
           <button key={objectCategory} onClick={(e) => handleOpen(e, objectCategory)} className={`${objectCategory === chosenObjectCategory && 'selected'}`}>{ objectCategory }</button> 
       )})}
-      <Popper disablePortal={true} open={open} anchorEl={anchorEl} placement="bottom" onClick={handleClose} sx={{ zIndex: 'modal' }} >
+      <Popper disablePortal={true} open={open} anchorEl={anchorEl} placement="bottom" onClick={handleClose} sx={{ zIndex: 'modal', background: '#f5f5f5' }} >
         <ClickAwayListener onClickAway={handleClose}>
           <div className='categories-options'>
             <div className='options-list'>

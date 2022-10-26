@@ -33,8 +33,7 @@ const NewCollection = () => {
             prevFilteredProducts.current = [...newCollection];
             prevFilteredProducts.beforeFilter = [...newCollection];
         }, 250)
-        navigate('/shop', )
-        
+        navigate('/shop')    
     }
 
 
@@ -52,13 +51,13 @@ const NewCollection = () => {
         )
         }
         <StylesProvider injectFirst>
-            <MobileStepper steps={maxSteps} position="static" activeStep={activeStep} 
+            <MobileStepper sx={{background: '#f5f5f5', '& .MuiMobileStepper-dotActive': {backgroundColor: '#ffba7e'}, }} steps={maxSteps} position="static" activeStep={activeStep} 
                 nextButton={
-                <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}> 
+                <Button sx={{color:'#ffba7e', fontSize: '18px', '&:hover': {backgroundColor: '#ffcc9f33'}}} size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}> 
                     <span>Next</span><KeyboardArrowRight />
                 </Button>}
                 backButton={
-                <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                <Button sx={{color:'#ffba7e', fontSize: '18px', '&:hover': {backgroundColor: '#ffcc9f33'}}} size="small" onClick={handleBack} disabled={activeStep === 0}>
                     <KeyboardArrowLeft /><span>Back</span>
                 </Button>}/>
         </StylesProvider>

@@ -34,7 +34,7 @@ const FilterOption = ({ filterName, filterValue }) => {
   
   return (
     <StylesProvider injectFirst>
-      <Accordion>
+      <Accordion sx={{ '&.MuiAccordionDetails-root': {backgroundColor: '#f5f5f5'}, '&.MuiPaper-root.MuiAccordion-root': {backgroundColor: '#f5f5f5'}, '& .MuiButtonBase-root.MuiAccordionSummary-root.Mui-expanded': {fontWeight: 600}}}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <p className='filter-name'>{ filterName }</p>
         </AccordionSummary>

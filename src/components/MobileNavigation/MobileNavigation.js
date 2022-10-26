@@ -27,7 +27,7 @@ const MobileNavigation = ({ resetNav }) => {
     }, [resetNav])
 
   return (
-    <BottomNavigation className='mobile-navigation' sx={{ width: '100%' }} value={value} onChange={handleChange}>
+    <BottomNavigation className='mobile-navigation' sx={{ width: '100%', '& .MuiBottomNavigationAction-root.Mui-selected': {color: '#ffba7e'}}} value={value} onChange={handleChange}>
       <BottomNavigationAction label="Favorites" value="favorite" icon={<FavoriteIcon />}/>
       <BottomNavigationAction label="Shop" value="shop" icon={<StorefrontIcon/>} />
       <BottomNavigationAction label="Cart" value="checkout" icon={<ShoppingCartIcon />} />

@@ -1,3 +1,5 @@
+@import '../../utils/mixins/breakpoints.scss';
+
 .product-page-container {
     height: 120vh;
     display: grid;
@@ -60,6 +62,7 @@
                 display: flex;
                 align-items: center;
                 width: 50%;
+                background-color: rgb(var(--background-color));
                 border-bottom: 1px solid rgb(var(--primary-light-color));
                 padding-inline: 1rem;
                 padding-block: .75rem;
@@ -84,10 +87,6 @@
                     align-items: center;
                     margin-left: auto;
                     outline: none;
-                }
-
-                .css-i4bv87-MuiSvgIcon-root {
-                    margin-left: 15px;
                 }
 
                 &:hover {
@@ -124,14 +123,112 @@
         }
     }
 
-    .MuiAccordion-root.css-1elwnq4-MuiPaper-root-MuiAccordion-root {
-        width: 50%;
+
+    @include device(tablet) {
+        min-height: 120vh;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 4fr 2fr 2fr;
+        margin-top: 2rem;
+    
+        .img-container {
+            grid-column: 1/3;
+            grid-row: 1/2;
+            
+            .product-img {
+                height: 100%;
+                width: 100%;
+                min-width: 365px;
+                max-width: none;
+                background-size: contain;
+ 
+            }
+        }
+    
+        .product-info {
+            grid-column: 1/3;
+            grid-row: 2/3;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            grid-template-rows: repeat(4, 50px);
+            padding: 0 3rem;
+    
+            .name-container {
+                grid-column: 1/3;
+                grid-row: 1/2;
+                justify-content: space-between;
+    
+                .product-name {
+                    font-size: 32px;
+                }
+            }
+    
+            .price {
+                grid-column: 2/3;
+                grid-row: 2/3;
+                margin-left: auto;
+                padding-right: 1rem;
+                align-self: center;
+                font-size: 30px;
+            }
+    
+            .sizes {
+                grid-column: 1/2;
+                grid-row: 2/3;
+    
+                .size-selector {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    border-bottom: 1px solid rgb(var(--primary-light-color));
+                    padding-inline: 1rem;
+                    padding-block: .75rem;
+                    box-shadow: 1px 5px 12px rgb(180, 180, 180);
+                }
+            }
+
+            .button {
+                grid-column: 1/3;
+                grid-row: 4/5;
+                justify-self: center;
+                width: 40%;
+            }
+        }
+    
+        .recommended-container {
+            grid-column: 1/3;
+            grid-row: 3/4;
+            margin-top: 1.5rem;
+            
+    
+            .recommended-text {
+                text-align: center;
+                font-size: 22px;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+    
+            .recommended-products {
+                display: flex;
+                align-items: center;
+                gap: 2rem;
+                margin-top: 1rem;
+                height: 90%;
+    
+                .shop-item {
+                    flex: 1;
+                    height: 80%;
+                }
+            }
+        }
+        .MuiAccordion-root {
+            width: 100%;
+        } 
     }
 }
 
 
 
-.css-o4b71y-MuiAccordionSummary-content {
+.MuiAccordionSummary-content {
 
     p {
         font-size: 20px;
@@ -140,7 +237,7 @@
     }
 }
 
-.css-15v22id-MuiAccordionDetails-root {
+.MuiAccordionDetails-root {
 
     .accordion-container {
         display: flex;
@@ -163,17 +260,17 @@
     }
 }
 
-.MuiPaper-root.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+.MuiPaper-root.MuiDialog-paper {
     width: 250px;
     height: 325px;
 
-    .css-bdhsul-MuiTypography-root-MuiDialogTitle-root {
+    .MuiTypography-root.MuiDialogTitle-root {
         display: flex;
         align-items: center;
         justify-content: space-between;
         font-size: 1rem;
 
-        .css-i4bv87-MuiSvgIcon-root {
+        .MuiSvgIcon-root {
 
             &:hover {
                 cursor: pointer;
@@ -181,7 +278,7 @@
         }
     }
 
-    .css-1t4vnk2-MuiDialogContent-root {
+    .MuiDialogContent-root {
         padding-inline: 0;
         .size-variants {
 
@@ -200,7 +297,7 @@
         } 
     }
 
-    .css-hlj6pa-MuiDialogActions-root {
+    .MuiDialogActions-root {
         display: flex;
         justify-content: center;
     }
