@@ -111,10 +111,27 @@
         flex-direction: column;
         justify-content: center;
     }
+
+    @include device(tablet) {
+        width: 95%;
+        height: 70%;
+
+        .modal-content {
+            justify-content: space-around;
+        }
+    }
 }
 
-.css-m5vj9m-MuiStepper-root {
+.MuiStepper-root {
     width: 100%;
     padding: 1rem;
     padding-bottom: 0.25rem;
+}
+
+.MuiSvgIcon-root.MuiStepIcon-root.Mui-active {
+    color: rgb(var(--primary-dark-color));
+}
+
+.MuiSvgIcon-root.MuiStepIcon-root.Mui-completed {
+    color: rgb(var(--primary-dark-color));
 }
