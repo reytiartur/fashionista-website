@@ -20,6 +20,7 @@ import DialogActions from '@mui/material/DialogActions';
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect } from 'react';
 import { FilterContext } from '../../context/FilterContext';
+import { UserContext } from '../../context/UserContext';
 
 
 
@@ -36,6 +37,7 @@ const FullItemPage = () => {
   const [recommendedArray, setRecommendedArray] = useState([])
 
   const { addItemToCart, setIsCartOpen } = useContext(CartContext)
+  const { isMobile } = useContext(UserContext)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -54,8 +56,10 @@ const FullItemPage = () => {
       setExpanded(true)
     } else {
       addItemToCart(product, chosenSize)
-      setIsCartOpen(true)
       setChosenSize(null)
+      if(!isMobile) {
+        setIsCartOpen(true)
+      }
     }
   }
 

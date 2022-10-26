@@ -9,12 +9,15 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
+import Badge from '@mui/material/Badge';
 import './MobileNavigation.scss'
+import { CartContext } from '../../context/CartContext';
 
 const MobileNavigation = ({ resetNav }) => {
     const [value, setValue] = useState('shop');
     const navigate = useNavigate();
     const { currentUser } = useContext(UserContext)
+    const { cartCount } = useContext(CartContext)
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
@@ -30,7 +33,7 @@ const MobileNavigation = ({ resetNav }) => {
     <BottomNavigation className='mobile-navigation' sx={{ width: '100%', '& .MuiBottomNavigationAction-root.Mui-selected': {color: '#ffba7e'}}} value={value} onChange={handleChange}>
       <BottomNavigationAction label="Favorites" value="favorite" icon={<FavoriteIcon />}/>
       <BottomNavigationAction label="Shop" value="shop" icon={<StorefrontIcon/>} />
-      <BottomNavigationAction label="Cart" value="checkout" icon={<ShoppingCartIcon />} />
+      <BottomNavigationAction label="Cart" value="checkout" icon={<Badge badgeContent={cartCount} color="error"><ShoppingCartIcon /></Badge>} />
       { currentUser ? <BottomNavigationAction label="Profile" value="auth" icon={<AccountCircleIcon />} /> : <BottomNavigationAction label="Login" value="auth" icon={<LoginIcon />} /> }
     </BottomNavigation>
   )
