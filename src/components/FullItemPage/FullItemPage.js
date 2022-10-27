@@ -59,7 +59,6 @@ const FullItemPage = () => {
   }
 
   const checkFavorites = (e) => {
-    console.log(filteredProducts)
     const value = Number(e.target.value)
     const allItem = Object.entries(products).map(cat => cat.map(items => typeof items === "string" ? items : items.map(item => item.id === value ? {...item, favorite: !item.favorite} : item)))
     const allItemObj = Object.fromEntries(allItem)
