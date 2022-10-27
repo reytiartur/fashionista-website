@@ -1,13 +1,16 @@
 @import '../../utils/mixins/breakpoints.scss';
 
 .shop-item {
+    min-height: 260px;
     max-height: 420px;
     max-width: 350px;
+    min-width: 220px;
     border-radius: 16px;
     box-shadow: 2px 2px 10px gray;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
 
     p {
         margin: 0 10px;
@@ -105,7 +108,9 @@
     }
 
     @include device(phone) {
-        
+        min-height: 240px;
+        min-width: 160px;
+
         .shop-item-img {
             height: 70%;
         }
@@ -121,13 +126,5 @@
             padding-top: 5px;
         }
     }
-
-}
-
-.css-1m9pwf3:checked ~ .fav-btn {
-    opacity: 1;
-    top: 10px;
-    right: 10px;
-    border: solid rgb(207, 7, 7) 1px;
 
 }

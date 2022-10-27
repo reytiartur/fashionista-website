@@ -13,7 +13,7 @@ export const ProductsContext = createContext({
   })
 
 export const ProductsProvider = ({children}) => {
-    const [products, setProducts] = useState({})
+    const [products, setProducts] = useState([])
     const [filteredProducts, setFilteredProducts] = useState([])
     const [categories, setCategories] = useState({})
     const prevFilteredProducts = useRef(filteredProducts);
@@ -28,7 +28,7 @@ export const ProductsProvider = ({children}) => {
     //       for(const sub in item) {
     //         if(sub === 'category' || sub === 'color' || sub === 'fit' || sub === 'season' || sub === 'sex' || sub === 'material' || sub === 'neckline' || sub === 'sleeve length' || sub === 'waist rise' || sub === 'length' ) { 
     //           tagArray.push(item[sub])
-    //         }
+    //         } 
     //       }
     //       item.tag = tagArray.flat();
     //       return item;
