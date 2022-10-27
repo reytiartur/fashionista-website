@@ -8,10 +8,6 @@ import Favorite from '@mui/icons-material/Favorite';
 import { useContext, useState } from 'react';
 import { CartContext } from '../../context/CartContext';
 import { ProductsContext } from '../../context/ProductsContext';
-import ShopItem from '../ShopItem/ShopItem';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -19,7 +15,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect } from 'react';
-import { FilterContext } from '../../context/FilterContext';
+import RecommendedCarousel from '../RecommendedCarousel/RecommendedCarousel';
 import { UserContext } from '../../context/UserContext';
 
 
@@ -29,7 +25,6 @@ const FullItemPage = () => {
   const { state } = useLocation()
   const { product } = state
   const { products, setProducts, filteredProducts, setFilteredProducts, prevFilteredProducts } = useContext(ProductsContext)
-  const { chosenObjectCategory } = useContext(FilterContext)
   const exactProductAll = products.all.filter(item => item.id === product.id)[0]
   const { name, fit, category, size, price, imgUrl, slug, favorite, id } = exactProductAll;
   const [chosenSize, setChosenSize] = useState(null)
@@ -100,25 +95,18 @@ const FullItemPage = () => {
           <Checkbox key={name} checked={favorite} onChange={checkFavorites} value={id} icon={<FavoriteBorder />} checkedIcon={<Favorite color='error' />} />
         </div>
         <span className="price">{price} €</span>
-        <Accordion sx={{ width: '50%', '&.MuiAccordionDetails-root': {backgroundColor: '#f5f5f5'}, '&.MuiPaper-root.MuiAccordion-root': {backgroundColor: '#f5f5f5'}}}>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-            <p className='details'>See details...</p>
-          </AccordionSummary>
-          <AccordionDetails>
-            <div className='accordion-container'>
-              {Object.entries(exactProductAll).map(item => {
-                if(item[0] === 'fit' || item[0] === 'season' || item[0] === 'sex' || item[0] === 'material' || item[0] === 'neckline' || item[0] === 'sleeve length' || item[0] === 'waist rise' || item[0] === 'length') {
-                  if(item[1] === null) {
-                    return;
-                  } else {
-                  return (
-                    <div key={`${item[0]} ${item[1]}`} className="accordion-item"><span>{item[0]}</span><span>: {item[1]}</span></div>
-                  )
-                }}
-              })}
-            </div>
-          </AccordionDetails>
-      </Accordion>
+        <div className='accordion-container'>
+          {Object.entries(exactProductAll).map(item => {
+            if(item[0] === 'fit' || item[0] === 'season' || item[0] === 'sex' || item[0] === 'material' || item[0] === 'neckline' || item[0] === 'sleeve length' || item[0] === 'waist rise' || item[0] === 'length') {
+              if(item[1] === null) {
+                return;
+              } else {
+              return (
+                <div key={`${item[0]} ${item[1]}`} className="accordion-item"><span>{item[0]}</span><span>: {item[1]}</span></div>
+              )
+            }}
+          })}
+        </div>
         <div className='sizes'>
           <div onClick={openSizeSelector} className='size-selector'>
             <div className='text'>Select your size:</div>
@@ -147,13 +135,7 @@ const FullItemPage = () => {
       </div>
       <div className="recommended-container">
         <div className='recommended-text'>Recommended for you:</div>
-        <div className='recommended-products'>
-          {recommendedArray.filter(product => product.id !== exactProductAll.id).slice(0, 6).map(product => {
-            return(
-              <ShopItem product={product} key={product.name} />
-            )
-          })}
-        </div>
+        <RecommendedCarousel recommendedArray={recommendedArray} exactProductAll={exactProductAll} />
       </div>
     </div>
   )
