@@ -3,7 +3,7 @@ import { useState } from 'react'
 import './SignIn.scss'
 import FormInput from '../FormInput/FormInput'
 import Button from '../Button/Button'
-import { signInAuthUserWithEmail, signInWithGooglePopup, createUserFromAuth } from '../../utils/firebase/firebase'
+import { signInAuthUserWithEmail, signInWithGooglePopup, createUserFromAuth, getDocName } from '../../utils/firebase/firebase'
 
 import { useContext } from 'react'
 import { UserContext } from '../../context/UserContext'
@@ -37,7 +37,8 @@ const SignIn = () => {
 
         try {
             const { user } = await signInAuthUserWithEmail(email, password);
-            setCurrentUser(user);
+            const userDisplayName = await getDocName(user)
+            setCurrentUser({...user, displayName: userDisplayName});
             resetFormField();
             navigate('/shop')
         } catch (err) {
