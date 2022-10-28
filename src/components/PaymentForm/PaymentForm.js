@@ -5,7 +5,12 @@ import { useContext, useState } from 'react';
 import { CartContext } from '../../context/CartContext';
 import { UserContext } from '../../context/UserContext';
 import './PaymentForm.scss'
+import { Dialog } from '@mui/material';
+import ErrorIcon from '@mui/icons-material/Error';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
+const paymentSuccessful = {text: 'Payment is successful!', icon: <ErrorIcon color='error' />}
+const paymentError = {text: 'Payment error: Something went wrong!', icon: <CheckCircleOutlineIcon color='success' />}
 
 const PaymentForm = ({ setOpen }) => {
     const stripe = useStripe()
@@ -13,6 +18,8 @@ const PaymentForm = ({ setOpen }) => {
     const { cartTotal } = useContext(CartContext)
     const { currentUser } = useContext(UserContext)
     const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+    const [alert, setAlert] = useState(null)
+    const [alertOpen, setAlertOpen] = useState(false)
 
     const paymentHandler = async (e) => {
         e.preventDefault()
@@ -40,25 +47,43 @@ const PaymentForm = ({ setOpen }) => {
         })
 
         setIsProcessingPayment(false);
+        handleOpen()
 
         if(paymentResult.error) {
-            alert(paymentResult.error)
+            setAlert(paymentError)
         } else {
             if (paymentResult.paymentIntent.status === 'succeeded') {
-                alert('Payment Successful!');
-                setOpen(false)
+                setAlert(paymentSuccessful)
             }
         }
     }
 
+    const handleOpen = () => {
+        setAlertOpen(true)
+    }
+
+    const handleClose = () => {
+        setAlertOpen(false)
+        setOpen(false)
+    }
+
   return (
-    <div className='payment-form-container'>
-        <div>Provide your Credit Card information</div>
-        <form onSubmit={paymentHandler} className="payment-form">
-            <CardElement style={{fontSize: '1.25rem'}} />
-            {isProcessingPayment ? (<Button disabled buttonType='disabled'>PROCESSING</Button>) : (<Button>PAY NOW</Button>)}
-        </form>
-    </div>
+    <>
+        <div className='payment-form-container'>
+            <div>Provide your Credit Card information</div>
+            <form onSubmit={paymentHandler} className="payment-form">
+                <CardElement style={{fontSize: '1.25rem'}} />
+                {isProcessingPayment ? (<Button disabled buttonType='disabled'>PROCESSING</Button>) : (<Button>PAY NOW</Button>)}
+            </form>
+        </div>
+        <Dialog onClose={handleClose} open={alertOpen}>
+            <div>
+                <p>{alert?.text}</p>
+                <div>{alert?.icon}</div>
+                <Button onClick={handleClose}>Close</Button>
+            </div>
+        </Dialog>
+    </>
   )
 }
 
