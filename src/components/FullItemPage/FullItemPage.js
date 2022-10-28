@@ -1,5 +1,4 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
 import './FullItemPage.scss'
 import Button from '../../components/Button/Button'
 import { Checkbox } from '@mui/material';
@@ -17,16 +16,25 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useEffect } from 'react';
 import RecommendedCarousel from '../RecommendedCarousel/RecommendedCarousel';
 import { UserContext } from '../../context/UserContext';
-
+import { useParams } from 'react-router-dom';
 
 
 const FullItemPage = () => {
   
-  const { state } = useLocation()
-  const { product } = state
+  const { slug } = useParams()
+
   const { products, setProducts, filteredProducts, setFilteredProducts, prevFilteredProducts } = useContext(ProductsContext)
-  const exactProductAll = products.all.filter(item => item.id === product.id)[0]
-  const { name, fit, category, size, price, imgUrl, slug, favorite, id } = exactProductAll;
+  const [exactProduct, setExactProduct] = useState([])
+
+
+  useEffect(() => {
+    setTimeout(() => {
+      const findProduct = Object.values(products?.all)?.filter(item => item.slug ===slug)
+      setExactProduct(findProduct[0])
+    }, 100)
+  }, [products])
+
+
   const [chosenSize, setChosenSize] = useState(null)
   const [expanded, setExpanded] = useState(false)
   const [recommendedArray, setRecommendedArray] = useState([])
@@ -37,20 +45,22 @@ const FullItemPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
     return setChosenSize(null)
-  }, [state])
+  }, [slug])
 
   useEffect(() => {
     const filteredIDs = filteredProducts.map(filtered => filtered.id)
-    prevFilteredProducts.current = Object.values(products?.all)?.filter(item => filteredIDs.includes(item.id))
-    setFilteredProducts(prevFilteredProducts.current)
-    setRecommendedArray(prevFilteredProducts.current)
+    setTimeout(() => {
+      prevFilteredProducts.current = Object.values(products?.all)?.filter(item => filteredIDs.includes(item.id))
+      setFilteredProducts(prevFilteredProducts.current)
+      setRecommendedArray(prevFilteredProducts.current)
+    },150)
   }, [products])
 
   const addProductToCart = () => {
     if(chosenSize === null) {
       setExpanded(true)
     } else {
-      addItemToCart(product, chosenSize)
+      addItemToCart(exactProduct, chosenSize)
       setChosenSize(null)
       if(!isMobile) {
         setIsCartOpen(true)
@@ -86,16 +96,16 @@ const FullItemPage = () => {
   return (
     <div className='product-page-container'>
       <div className="img-container">
-        <div className="product-img" style={{ backgroundImage:`url(${imgUrl})` }}></div>
+        <div className="product-img" style={{ backgroundImage:`url(${exactProduct.imgUrl})` }}></div>
       </div>
       <div className="product-info">
         <div className='name-container'>
-          <p className='product-name'>{fit} {name}</p>
-          <Checkbox key={name} checked={favorite} onChange={checkFavorites} value={id} icon={<FavoriteBorder />} checkedIcon={<Favorite color='error' />} />
+          <p className='product-name'>{exactProduct.fit} {exactProduct.name}</p>
+          <Checkbox key={exactProduct.name} checked={exactProduct.favorite} onChange={checkFavorites} value={exactProduct.id} icon={<FavoriteBorder />} checkedIcon={<Favorite color='error' />} />
         </div>
-        <span className="price">{price} €</span>
+        <span className="price">{exactProduct.price} €</span>
         <div className='accordion-container'>
-          {Object.entries(exactProductAll).map(item => {
+          {Object.entries(exactProduct).map(item => {
             if(item[0] === 'fit' || item[0] === 'season' || item[0] === 'sex' || item[0] === 'material' || item[0] === 'neckline' || item[0] === 'sleeve length' || item[0] === 'waist rise' || item[0] === 'length') {
               if(item[1] === null) {
                 return;
@@ -118,7 +128,7 @@ const FullItemPage = () => {
               <CloseIcon onClick={exitSizeSelector} />
             </DialogTitle>
             <DialogContent dividers>
-              <div className='size-variants'>{size.map(value => {
+              <div className='size-variants'>{exactProduct.size?.map(value => {
                   return (
                     <div className={`size-item ${chosenSize === value && 'active'}`} onClick={() => handleSelectSize(value)} value={value} key={value}>{value.toUpperCase()}</div>
                   )
@@ -134,7 +144,7 @@ const FullItemPage = () => {
       </div>
       <div className="recommended-container">
         <div className='recommended-text'>Recommended for you:</div>
-        <RecommendedCarousel recommendedArray={recommendedArray} exactProductAll={exactProductAll} />
+        <RecommendedCarousel recommendedArray={recommendedArray} exactProduct={exactProduct} />
       </div>
     </div>
   )

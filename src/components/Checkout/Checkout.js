@@ -23,7 +23,7 @@ const Checkout = () => {
         },
         {
             label: "Payment details",
-            component: <PaymentForm setOpen={setOpen} />
+            component: <PaymentForm setActiveStep={setActiveStep} setOpen={setOpen} />
         }
     ]
 

@@ -21,7 +21,7 @@ const ShopItem = ({ product }) => {
     const moveToItem = (e) => {
       if(e.target.classList.contains('click-to-move')) {
         prevFilteredProducts.current = filteredProducts;
-        navigate(`/shop/${slug}`, {state: { product }})
+        navigate(`/shop/${slug}`)
       }
     }
 

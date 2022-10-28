@@ -39,7 +39,7 @@ const NewCollection = () => {
 
   return (
     <div className='new'>
-        { Object.keys(products).length !== 0 ? (
+        { Object.keys(products)?.length !== 0 ? (
         <div onClick={handleNewCollection} className='new-img' style={{ backgroundImage:`url(${newCollection[activeStep]?.imgUrl})` }}>
             <div className='new-text'>
                 <p className='text-new'>New Collection</p>

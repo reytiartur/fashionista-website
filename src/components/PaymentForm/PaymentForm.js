@@ -8,14 +8,15 @@ import './PaymentForm.scss'
 import { Dialog } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { display } from '@mui/system';
 
-const paymentSuccessful = {text: 'Payment is successful!', icon: <ErrorIcon color='error' />}
-const paymentError = {text: 'Payment error: Something went wrong!', icon: <CheckCircleOutlineIcon color='success' />}
+const paymentSuccessful = {text: 'Payment is successful!', icon: <CheckCircleOutlineIcon color='success' />}
+const paymentError = {text: 'Payment error: Something went wrong!', icon: <ErrorIcon color='error' />}
 
-const PaymentForm = ({ setOpen }) => {
+const PaymentForm = ({ setActiveStep, setOpen }) => {
     const stripe = useStripe()
     const elements = useElements()
-    const { cartTotal } = useContext(CartContext)
+    const { cartTotal, setCartItems } = useContext(CartContext)
     const { currentUser } = useContext(UserContext)
     const [isProcessingPayment, setIsProcessingPayment] = useState(false);
     const [alert, setAlert] = useState(null)
@@ -54,6 +55,8 @@ const PaymentForm = ({ setOpen }) => {
         } else {
             if (paymentResult.paymentIntent.status === 'succeeded') {
                 setAlert(paymentSuccessful)
+                setActiveStep(0)
+                setCartItems([])
             }
         }
     }
@@ -76,10 +79,10 @@ const PaymentForm = ({ setOpen }) => {
                 {isProcessingPayment ? (<Button disabled buttonType='disabled'>PROCESSING</Button>) : (<Button>PAY NOW</Button>)}
             </form>
         </div>
-        <Dialog onClose={handleClose} open={alertOpen}>
+        <Dialog style={{display: 'flex', flexDirection: 'column', alignItems:'center', padding: '5px'}} onClose={handleClose} open={alertOpen}>
             <div>
-                <p>{alert?.text}</p>
-                <div>{alert?.icon}</div>
+                <p style={{fontSize:"22px", fontWeight: 600, textAlign: 'center'}}>{alert?.text}</p>
+                {alert?.icon}
                 <Button onClick={handleClose}>Close</Button>
             </div>
         </Dialog>
