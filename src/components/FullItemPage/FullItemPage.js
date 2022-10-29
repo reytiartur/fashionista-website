@@ -27,12 +27,13 @@ const FullItemPage = () => {
   const [exactProduct, setExactProduct] = useState([])
 
 
+
   useEffect(() => {
     setTimeout(() => {
-      const findProduct = Object.values(products?.all)?.filter(item => item.slug ===slug)
+      const findProduct = Object.values(products?.all)?.filter(item => item.slug === slug)
       setExactProduct(findProduct[0])
-    }, 100)
-  }, [products])
+    }, 150)
+  }, [products, slug])
 
 
   const [chosenSize, setChosenSize] = useState(null)
@@ -51,9 +52,8 @@ const FullItemPage = () => {
     const filteredIDs = filteredProducts.map(filtered => filtered.id)
     setTimeout(() => {
       prevFilteredProducts.current = Object.values(products?.all)?.filter(item => filteredIDs.includes(item.id))
-      setFilteredProducts(prevFilteredProducts.current)
       setRecommendedArray(prevFilteredProducts.current)
-    },150)
+    },100)
   }, [products])
 
   const addProductToCart = () => {

@@ -55,8 +55,6 @@ const PaymentForm = ({ setActiveStep, setOpen }) => {
         } else {
             if (paymentResult.paymentIntent.status === 'succeeded') {
                 setAlert(paymentSuccessful)
-                setActiveStep(0)
-                setCartItems([])
             }
         }
     }
@@ -68,6 +66,8 @@ const PaymentForm = ({ setActiveStep, setOpen }) => {
     const handleClose = () => {
         setAlertOpen(false)
         setOpen(false)
+        setActiveStep(0)
+        setCartItems([])
     }
 
   return (

@@ -13,7 +13,7 @@ const { products } = useContext(ProductsContext)
     <div className='main-container'>
       <div className='text'>Popular categories:</div>
       <div className='categories-container'>
-          {Object.entries(products)?.map((category) => {
+          {Object.entries(products).map((category) => {
               return(
                 <CategoryContainer key={category[0]} categoryName={category[0]} categoryItems={category[1]} />
               )

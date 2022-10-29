@@ -20,10 +20,10 @@ const Filter = () => {
     useEffect(() => {
         setFilterMinPrice(min)
         setFilterMaxPrice(max)
+        prevFilteredProducts.beforeFilter = filteredProducts;
     }, [])
 
     const handleSliderChange = (event, newValue) => {
-        prevFilteredProducts.beforeFilter = filteredProducts;
         setFilterMinPrice(+newValue[0]) 
         setFilterMaxPrice(+newValue[1])
     };

@@ -18,7 +18,7 @@ const CategoryContainer = ({ categoryName, categoryItems }) => {
 
   const handleNavigate = () => {
     setChosenObjectCategory(categoryName)
-    setTimeout(() => {setFilteredProducts(products[categoryName])}, 100)
+    setTimeout(() => {setFilteredProducts(products[categoryName])}, 125)
     setTimeout(() => {prevFilteredProducts.beforeFilter = products[categoryName]}, 150)
     navigate('/shop')
   }

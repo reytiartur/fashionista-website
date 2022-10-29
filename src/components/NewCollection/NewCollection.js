@@ -8,6 +8,7 @@ import { ProductsContext } from '../../context/ProductsContext';
 import './NewCollection.scss'
 import { useNavigate } from 'react-router-dom';
 import { StylesProvider } from "@material-ui/core/styles";
+import { FilterContext } from '../../context/FilterContext';
 
 
 const NewCollection = () => {
@@ -16,6 +17,8 @@ const NewCollection = () => {
     const newCollection = products?.all?.filter(product => product.new === true)
     const maxSteps = newCollection?.length
     const navigate = useNavigate()
+  const { setChosenObjectCategory } = useContext(FilterContext)
+
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -28,11 +31,12 @@ const NewCollection = () => {
     const handleNewCollection = () => {
         setTimeout(() => {
             setFilteredProducts([...newCollection])
-        }, 100)
+            setChosenObjectCategory("all")
+        }, 125)
         setTimeout(() => {
             prevFilteredProducts.current = [...newCollection];
             prevFilteredProducts.beforeFilter = [...newCollection];
-        }, 250)
+        }, 150)
         navigate('/shop')    
     }
 

@@ -3,7 +3,7 @@ import { getCategoriesAndDocuments, addCollectionAndDocuments } from "../utils/f
 // import PRODUCTS from "../products";
 
 export const ProductsContext = createContext({
-    products: {},
+    products: [],
     setProducts: () => {},
     filteredProducts: [],
     setFilteredProducts: () => {},
@@ -34,7 +34,7 @@ export const ProductsProvider = ({children}) => {
     //       return item;
     //     })
     //     .map(item => {
-    //         item.slug = (item.name + " " + item.fit).toLowerCase().split(" ").join("-") + '/'
+    //         item.slug = (item.name + " " + item.fit).toLowerCase().split(" ").join("-")
     //         return item
     //       })
     //     .map(item => item.favorite = false) 
