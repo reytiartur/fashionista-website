@@ -16,7 +16,7 @@ const paymentError = {text: 'Payment error: Something went wrong!', icon: <Error
 const PaymentForm = ({ setActiveStep, setOpen }) => {
     const stripe = useStripe()
     const elements = useElements()
-    const { cartTotal, setCartItems } = useContext(CartContext)
+    const { cartTotal, cartItems, clearItem } = useContext(CartContext)
     const { currentUser } = useContext(UserContext)
     const [isProcessingPayment, setIsProcessingPayment] = useState(false);
     const [alert, setAlert] = useState(null)
@@ -67,7 +67,7 @@ const PaymentForm = ({ setActiveStep, setOpen }) => {
         setAlertOpen(false)
         setOpen(false)
         setActiveStep(0)
-        setCartItems([])
+        cartItems.map(cartItem => clearItem(cartItem))
     }
 
   return (
@@ -79,8 +79,8 @@ const PaymentForm = ({ setActiveStep, setOpen }) => {
                 {isProcessingPayment ? (<Button disabled buttonType='disabled'>PROCESSING</Button>) : (<Button>PAY NOW</Button>)}
             </form>
         </div>
-        <Dialog style={{display: 'flex', flexDirection: 'column', alignItems:'center', padding: '5px'}} onClose={handleClose} open={alertOpen}>
-            <div>
+        <Dialog onClose={handleClose} open={alertOpen}>
+            <div className='alert'>
                 <p style={{fontSize:"22px", fontWeight: 600, textAlign: 'center'}}>{alert?.text}</p>
                 {alert?.icon}
                 <Button onClick={handleClose}>Close</Button>
